@@ -7,3 +7,12 @@ C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.Proper
 C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
 C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.exe
 C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.pdb
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.exe.config
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.exe
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.pdb
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.exe
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.pdb
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csprojResolveAssemblyReference.cache
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Form1.resources
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Properties.Resources.resources
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache

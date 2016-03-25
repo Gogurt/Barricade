@@ -16,5 +16,35 @@ namespace Barricade
         {
             InitializeComponent();
         }
+
+        //Join a session
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Send string request with loopSend method
+            sendManualRequestPrompt();
+        }
+
+        //Create a session
+        private void button2_Click(object sender, EventArgs e)
+        {
+           Program.CreateServerSocket();
+        }
+
+        private void sendManualRequestPrompt()
+        {
+            if (Program.clientSocket.Connected)
+            {
+                string input = Microsoft.VisualBasic.Interaction.InputBox("Enter your request", "Debug manual request", "Default", -1, -1);
+                Program.SendLoop(input);
+            }
+            else
+            {
+                Program.LoopConnect();
+                sendManualRequestPrompt();
+            }
+        }
+
     }
+
+
 }
