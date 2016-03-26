@@ -20,6 +20,7 @@ namespace Barricade
         //Join a session
         private void button1_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Manual request prompt occuring...");
             //Send string request with loopSend method
             sendManualRequestPrompt();
         }
@@ -34,13 +35,19 @@ namespace Barricade
         {
             if (Program.clientSocket.Connected)
             {
-                string input = Microsoft.VisualBasic.Interaction.InputBox("Enter your request", "Debug manual request", "Default", -1, -1);
-                Program.SendLoop(input);
+                while(true)
+                {
+                    string input = Microsoft.VisualBasic.Interaction.InputBox("Enter your request", "Debug manual request", "", -1, -1);
+                    if(input == "exit")
+                    {
+                        break;
+                    }
+                    Program.SendLoop(input);
+                }
             }
             else
             {
-                Program.LoopConnect();
-                sendManualRequestPrompt();
+                Program.ClientConnect();
             }
         }
 

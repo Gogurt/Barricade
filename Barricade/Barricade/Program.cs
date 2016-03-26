@@ -86,11 +86,11 @@ namespace Barricade
         }
 
         //CLIENT
-        public static void LoopConnect()
+        public static void ClientConnect()
         {
             int attempts = 0;
 
-            while (!clientSocket.Connected)
+            while (!clientSocket.Connected && attempts <= 5)
             {
                 try
                 {
@@ -102,7 +102,17 @@ namespace Barricade
                     Console.WriteLine("Connection attempts: " + attempts.ToString());
                 }
             }
-            Console.WriteLine("Client connected");
+            if(clientSocket.Connected)
+            {
+                Console.WriteLine("Client connected");
+                MessageBox.Show("Client connected");
+            }
+            else
+            {
+                Console.WriteLine("Failed to connect");
+                MessageBox.Show("Failed to connect");
+            }
+
         }
 
         public static void SendLoop(string req)
@@ -110,11 +120,13 @@ namespace Barricade
                 byte[] buffer = Encoding.ASCII.GetBytes(req);
                 clientSocket.Send(buffer);
 
-                byte[] receivedBuf = new byte[1024];
-                int rec = clientSocket.Receive(receivedBuf);
-                byte[] data = new byte[rec];
-                Array.Copy(receivedBuf, data, rec);
-                Console.WriteLine("Received: " + Encoding.ASCII.GetString(data));
+                //Receiving response
+
+                //byte[] receivedBuf = new byte[1024];
+                //int rec = clientSocket.Receive(receivedBuf);
+                //byte[] data = new byte[rec];
+                //Array.Copy(receivedBuf, data, rec);
+                //Console.WriteLine("Received: " + Encoding.ASCII.GetString(data));
             
         }
     }
