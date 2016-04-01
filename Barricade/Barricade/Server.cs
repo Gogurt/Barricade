@@ -33,7 +33,7 @@ namespace Barricade
         public static void CreateServerSocket()
         {
             Console.WriteLine("Setting up the server...");
-            serverSocket.Bind(new IPEndPoint(IPAddress.Any, 100));
+            serverSocket.Bind(new IPEndPoint(IPAddress.Any, 8000));
             serverSocket.Listen(5);
             serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
             Console.WriteLine("Server has been created!");
@@ -63,6 +63,8 @@ namespace Barricade
             if(text.Equals("Client Disconnect"))
             {
                 socket.Disconnect(true);
+                
+                numberOfPlayers--;
             }
             else
             {

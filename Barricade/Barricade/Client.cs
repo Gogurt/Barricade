@@ -33,7 +33,7 @@ namespace Barricade
                 try
                 {
                     attempts++;
-                    clientSocket.Connect(IPAddress.Loopback, 100);
+                    clientSocket.Connect(IPAddress.Loopback, 8000);
                 }
                 catch (SocketException)
                 {
@@ -73,7 +73,8 @@ namespace Barricade
             byte[] buffer = Encoding.ASCII.GetBytes("Client Disconnect");
             clientSocket.Send(buffer);
             clientSocket.Disconnect(true);
-            Console.WriteLine("Client Diconnected.");
+            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Console.WriteLine("Client Diconnected");
         }
 
 

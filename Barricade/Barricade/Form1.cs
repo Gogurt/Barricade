@@ -24,6 +24,7 @@ namespace Barricade
         //Join a session button (Join Game)
         private void button1_Click(object sender, EventArgs e)
         {
+            joinSessionPanel.Visible = true;
             Console.WriteLine("Manual request prompt occuring...");
             //Send string request with loopSend method
             sendManualRequestPrompt();
@@ -32,6 +33,7 @@ namespace Barricade
         //Create a session button (Host Game)
         private void button2_Click(object sender, EventArgs e)
         {
+            hostSessionPanel.Visible = true;
             Server.CreateServerSocket();
             //Change to panel that waits for incoming clients to join
 
