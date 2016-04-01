@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Barricade Network Game
+ * Garrett Leatherman, Jamie Thul, Erik Canton, Matthew Leet
+ * 3/31/16
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +21,7 @@ namespace Barricade
             InitializeComponent();
         }
 
-        //Join a session
+        //Join a session button (Join Game)
         private void button1_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Manual request prompt occuring...");
@@ -25,15 +29,18 @@ namespace Barricade
             sendManualRequestPrompt();
         }
 
-        //Create a session
+        //Create a session button (Host Game)
         private void button2_Click(object sender, EventArgs e)
         {
-           Program.CreateServerSocket();
+            Server.CreateServerSocket();
+            //Change to panel that waits for incoming clients to join
+
         }
 
+        //Currently for debugging purposes by sending string data to host. Activated by Join Game button after connect to host is made.
         private void sendManualRequestPrompt()
         {
-            if (Program.clientSocket.Connected)
+            if (Client.clientSocket.Connected)
             {
                 while(true)
                 {
@@ -42,12 +49,13 @@ namespace Barricade
                     {
                         break;
                     }
-                    Program.SendLoop(input);
+                    Client.SendLoop(input);
                 }
+                Client.Disconnect();
             }
             else
             {
-                Program.ClientConnect();
+                Client.ClientConnect();
             }
         }
 
