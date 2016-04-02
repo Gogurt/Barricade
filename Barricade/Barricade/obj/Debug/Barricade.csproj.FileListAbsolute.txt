@@ -7,3 +7,6 @@ C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.Proper
 C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
 C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.exe
 C:\Users\Gibble\Desktop\Barricade\Barricade\Barricade\obj\Debug\Barricade.pdb
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\bin\Debug\Barricade.exe.config
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.exe
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.pdb
