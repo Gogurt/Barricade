@@ -31,6 +31,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.joinSessionPanel = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.hostSessionPanel = new System.Windows.Forms.Panel();
+            this.hostGameLabel = new System.Windows.Forms.Label();
+            this.joinSessionPanel.SuspendLayout();
+            this.hostSessionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -44,6 +50,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Join Game";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -56,17 +63,62 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "Host Game";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Couture", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(214, 32);
+            this.label1.Size = new System.Drawing.Size(163, 37);
             this.label1.TabIndex = 2;
             this.label1.Text = "Barricade";
+            // 
+            // joinSessionPanel
+            // 
+            this.joinSessionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(79)))), ((int)(((byte)(100)))));
+            this.joinSessionPanel.Controls.Add(this.label2);
+            this.joinSessionPanel.Location = new System.Drawing.Point(170, 2);
+            this.joinSessionPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.joinSessionPanel.Name = "joinSessionPanel";
+            this.joinSessionPanel.Size = new System.Drawing.Size(360, 382);
+            this.joinSessionPanel.TabIndex = 3;
+            this.joinSessionPanel.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(10, 7);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Join Game";
+            // 
+            // hostSessionPanel
+            // 
+            this.hostSessionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(79)))), ((int)(((byte)(100)))));
+            this.hostSessionPanel.Controls.Add(this.hostGameLabel);
+            this.hostSessionPanel.Location = new System.Drawing.Point(167, 2);
+            this.hostSessionPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hostSessionPanel.Name = "hostSessionPanel";
+            this.hostSessionPanel.Size = new System.Drawing.Size(360, 382);
+            this.hostSessionPanel.TabIndex = 4;
+            this.hostSessionPanel.Visible = false;
+            // 
+            // hostGameLabel
+            // 
+            this.hostGameLabel.AutoSize = true;
+            this.hostGameLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.hostGameLabel.Location = new System.Drawing.Point(5, 7);
+            this.hostGameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.hostGameLabel.Name = "hostGameLabel";
+            this.hostGameLabel.Size = new System.Drawing.Size(60, 13);
+            this.hostGameLabel.TabIndex = 0;
+            this.hostGameLabel.Text = "Host Game";
             // 
             // Form1
             // 
@@ -74,12 +126,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(79)))), ((int)(((byte)(100)))));
             this.ClientSize = new System.Drawing.Size(529, 384);
+            this.Controls.Add(this.hostSessionPanel);
+            this.Controls.Add(this.joinSessionPanel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Barricade";
+            this.joinSessionPanel.ResumeLayout(false);
+            this.joinSessionPanel.PerformLayout();
+            this.hostSessionPanel.ResumeLayout(false);
+            this.hostSessionPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -90,6 +148,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel joinSessionPanel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel hostSessionPanel;
+        private System.Windows.Forms.Label hostGameLabel;
     }
 }
 
