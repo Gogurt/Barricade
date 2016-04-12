@@ -16,10 +16,10 @@ namespace Barricade
         Color Color;
         bool Selected;
 
-        int startX;
-        int startY;
-        int endX;
-        int endY;
+        public int startX;
+        public int startY;
+        public int endX;
+        public int endY;
 
         public Line(Corner c1, Corner c2)
         {
@@ -37,6 +37,28 @@ namespace Barricade
         public void setColor(Color color)
         {
             Color = color;
+        }
+
+        public int getBottom()
+        {
+            return Rec.Bottom;
+        }
+
+        public int getTop()
+        {
+            return Rec.Top;
+        }
+        public bool isSelected()
+        {
+            return Selected;
+        }
+
+        public bool Vertical
+        {
+            get
+            {
+                return Start.getLocation().X == End.getLocation().X;
+            }
         }
 
         public void drawLine(Graphics g)

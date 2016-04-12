@@ -25,3 +25,6 @@ C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csprojReso
 C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Form1.resources
 C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Properties.Resources.resources
 C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\bin\Debug\Barricade.exe.config
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.exe
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.pdb
