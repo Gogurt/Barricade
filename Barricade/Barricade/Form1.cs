@@ -25,9 +25,40 @@ namespace Barricade
         private void button1_Click(object sender, EventArgs e)
         {
             joinSessionPanel.Visible = true;
-            Console.WriteLine("Manual request prompt occuring...");
+            string ipInput = Microsoft.VisualBasic.Interaction.InputBox("Enter the host ip. If left empty, this will attempt to connect to a local host.", "Join Host Session", "", -1, -1);
+            if(ipInput.Length == 0)
+            {
+                clientDebugTextbox.Items.Add("Attempting to join a local host...");
+            }
+            else
+            {
+                clientDebugTextbox.Items.Add("Attempting to join " + ipInput + "...");
+            }
+            Client.ClientConnect(ipInput);
             //Send string request with loopSend method
-            sendManualRequestPrompt();
+
+            if (Client.clientSocket.Connected)
+            {
+                clientDebugTextbox.Items.Add("Client successfully connected to host!");
+                Console.WriteLine("Manual request prompt occuring...");
+                while (true)
+                {
+                    string input = Microsoft.VisualBasic.Interaction.InputBox("Enter your request", "Debug manual request", "", -1, -1);
+                    if (input.ToLower() == "exit")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Client.SendLoop(input);
+                    }
+                }
+            }
+            else
+            {
+                clientDebugTextbox.Items.Add("Failed to connect to specified ip. Please press exit and try again.");
+                Console.WriteLine("Failed to connect to specified ip. Please press exit and try again.");
+            }
         }
 
         //Create a session button (Host Game)
@@ -39,26 +70,20 @@ namespace Barricade
 
         }
 
-        //Currently for debugging purposes by sending string data to host. Activated by Join Game button after connect to host is made.
-        private void sendManualRequestPrompt()
+
+        //Client session back button
+        private void button3_Click(object sender, EventArgs e)
         {
-            if (Client.clientSocket.Connected)
-            {
-                while(true)
-                {
-                    string input = Microsoft.VisualBasic.Interaction.InputBox("Enter your request", "Debug manual request", "", -1, -1);
-                    if(input == "exit")
-                    {
-                        break;
-                    }
-                    Client.SendLoop(input);
-                }
-                Client.Disconnect();
-            }
-            else
-            {
-                Client.ClientConnect();
-            }
+            //Clearing any client textbox related items
+            clientDebugTextbox.Items.Clear();
+            joinSessionPanel.Visible = false;
+        }
+        //Host session back button
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //Close the server socket
+            hostSessionPanel.Visible = false;
+            Server.closeServer();
         }
 
     }

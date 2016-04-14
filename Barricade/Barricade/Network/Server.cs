@@ -27,11 +27,12 @@ namespace Barricade
         //Net-related
         private static byte[] buffer = new byte[1024];
         private static List<Socket> clientSockets = new List<Socket>();
-        private static Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        public static Socket serverSocket;
 
         //SERVER
         public static void CreateServerSocket()
         {
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Console.WriteLine("Setting up the server...");
             serverSocket.Bind(new IPEndPoint(IPAddress.Any, 8000));
             serverSocket.Listen(5);
@@ -42,12 +43,20 @@ namespace Barricade
 
         private static void AcceptCallback(IAsyncResult AR)
         {
-            Socket socket = serverSocket.EndAccept(AR);
-            clientSockets.Add(socket);
-            Console.WriteLine("Player " + (clientSockets.Count + 1).ToString() + " has connected!");
-            numberOfPlayers++;
-            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
-            serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+            Socket socket;
+            try
+            {
+                socket = serverSocket.EndAccept(AR);
+                clientSockets.Add(socket);
+                Console.WriteLine("Player " + (clientSockets.Count + 1).ToString() + " has connected!");
+                numberOfPlayers++;
+                socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+                serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
         private static void ReceiveCallback(IAsyncResult AR)
@@ -87,5 +96,10 @@ namespace Barricade
         }
 
 
+
+        public static void closeServer()
+        {
+            serverSocket.Close(1);
+        }
     }
 }

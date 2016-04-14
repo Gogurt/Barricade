@@ -16,15 +16,15 @@ C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csprojRes
 C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Form1.resources
 C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Properties.Resources.resources
 C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.exe.config
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.exe
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.pdb
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.exe
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.pdb
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csprojResolveAssemblyReference.cache
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Form1.resources
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Properties.Resources.resources
-C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
 C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\bin\Debug\Barricade.exe.config
 C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.exe
 C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.pdb
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.exe.config
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.exe
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\bin\Debug\Barricade.pdb
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Form1.resources
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.Properties.Resources.resources
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.exe
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.pdb
+C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csprojResolveAssemblyReference.cache

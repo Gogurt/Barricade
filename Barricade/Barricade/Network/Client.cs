@@ -24,7 +24,7 @@ namespace Barricade
     {
         public static Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         
-        public static void ClientConnect()
+        public static void ClientConnect(string ipInput)
         {
             int attempts = 0;
 
@@ -33,6 +33,7 @@ namespace Barricade
                 try
                 {
                     attempts++;
+                    //Replace IpAddress.Loopback with ipInput if connecting to host on different machine.
                     clientSocket.Connect(IPAddress.Loopback, 8000);
                 }
                 catch (SocketException)
@@ -43,12 +44,11 @@ namespace Barricade
             if (clientSocket.Connected)
             {
                 Console.WriteLine("Client connected");
-                MessageBox.Show("Client connected");
             }
             else
             {
                 Console.WriteLine("Failed to connect");
-                MessageBox.Show("Failed to connect");
+                
             }
 
         }
