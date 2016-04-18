@@ -28,3 +28,21 @@ C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csproj.Gen
 C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.exe
 C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.pdb
 C:\Users\Gibble\Desktop\Barricade Local\Barricade\obj\Debug\Barricade.csprojResolveAssemblyReference.cache
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\bin\Debug\Barricade.exe.config
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\obj\Debug\Barricade.exe
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\obj\Debug\Barricade.pdb
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\bin\Debug\Barricade.exe
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\bin\Debug\Barricade.pdb
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\obj\Debug\Barricade.csprojResolveAssemblyReference.cache
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\obj\Debug\Barricade.Form1.resources
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\obj\Debug\Barricade.Properties.Resources.resources
+F:\School\Junior Year\Networking\Barricade_Local\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\bin\Debug\Barricade.exe.config
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\obj\Debug\Barricade.exe
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\obj\Debug\Barricade.pdb
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\bin\Debug\Barricade.exe
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\bin\Debug\Barricade.pdb
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\obj\Debug\Barricade.csprojResolveAssemblyReference.cache
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\obj\Debug\Barricade.Form1.resources
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\obj\Debug\Barricade.Properties.Resources.resources
+C:\Users\Gibble\Desktop\Barricade_Local\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache

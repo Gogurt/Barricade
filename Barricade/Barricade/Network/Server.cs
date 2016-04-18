@@ -61,31 +61,37 @@ namespace Barricade
 
         private static void ReceiveCallback(IAsyncResult AR)
         {
-            Socket socket = (Socket)AR.AsyncState;
-            int received = socket.EndReceive(AR);
-            //Trims null bytes being sent
-            byte[] dataBuf = new byte[received];
-            Array.Copy(buffer, dataBuf, received);
+            try {
+                Socket socket = (Socket)AR.AsyncState;
+                int received = socket.EndReceive(AR);
+                //Trims null bytes being sent
+                byte[] dataBuf = new byte[received];
+                Array.Copy(buffer, dataBuf, received);
 
-            string text = Encoding.ASCII.GetString(dataBuf);
-            Console.WriteLine("Text received: " + text);
-            if(text.Equals("Client Disconnect"))
-            {
-                socket.Disconnect(true);
+                string text = Encoding.ASCII.GetString(dataBuf);
+                Console.WriteLine("Text received: " + text);
+                if(text.Equals("Client Disconnect"))
+                {
+                    socket.Disconnect(true);
                 
-                numberOfPlayers--;
+                    numberOfPlayers--;
+                }
+                else
+                {
+                    string response = string.Empty;
+
+                    //text acts as a request, this is where it would be interpreted.
+                    //So coordiate information on the current player's turn would be retrieved here,
+                    //and then interpreted to send info back to all conncted players.
+
+                    byte[] data = Encoding.ASCII.GetBytes(response);
+                    socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
+                    socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+                }
             }
-            else
+            catch (Exception e)
             {
-                string response = string.Empty;
-
-                //text acts as a request, this is where it would be interpreted.
-                //So coordiate information on the current player's turn would be retrieved here,
-                //and then interpreted to send info back to all conncted players.
-
-                byte[] data = Encoding.ASCII.GetBytes(response);
-                socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
-                socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+                Console.WriteLine(e.ToString());
             }
         }
 

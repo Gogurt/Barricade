@@ -86,6 +86,28 @@ namespace Barricade
             Server.closeServer();
         }
 
+        private void hostOptionsButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hostStartButton_Click(object sender, EventArgs e)
+        {
+            /* At this point, the host should close off any attempts for other clients to join.
+             * Then, it makes the game board visible to itself and any connected clients.
+             * Information that defines the board should be applied, as well as sent to connected clients.
+             */
+            gamePanel.Visible = true;
+            //Send player indicator to make their game panel visible
+            //Send initial info to connected players about game settings, whose turn it is
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 
 
