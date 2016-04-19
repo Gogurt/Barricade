@@ -24,7 +24,13 @@ namespace Barricade
     {
         public static Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         
-        public static void ClientConnect(string ipInput)
+        public static Form1 myForm;
+        public Client(Form1 form)
+        {
+            myForm = form;
+        }
+
+        public void ClientConnect(String ipInput)
         {
             int attempts = 0;
 
@@ -34,7 +40,15 @@ namespace Barricade
                 {
                     attempts++;
                     //Replace IpAddress.Loopback with ipInput if connecting to host on different machine.
-                    clientSocket.Connect(IPAddress.Loopback, 8000);
+                    //"10.134.222.242"
+                    if (ipInput == "")
+                    {
+                        clientSocket.Connect(IPAddress.Loopback, 8000);
+                    }
+                    else
+                    {
+                        clientSocket.Connect(ipInput, 8000);
+                    }
                 }
                 catch (SocketException)
                 {
@@ -53,7 +67,19 @@ namespace Barricade
 
         }
 
-        public static void SendLoop(string req)
+        public bool isConnected()
+        {
+            if(clientSocket.Connected)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void SendLoop(string req)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(req);
             clientSocket.Send(buffer);

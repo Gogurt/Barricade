@@ -11,22 +11,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Barricade
 {
     public partial class Form1 : Form
     {
+        static Server server;
+        static Client client;
+        
+
         public Form1()
         {
             InitializeComponent();
+            server = new Server(this);
+            client = new Client(this);
         }
 
+        /*
+         * This thread does not work. Crosshatch error keeps coming back.
+         */
+        public void ListenForServerMessageThread()
+        {
+            string serverMessage = "";
+            string previousMessage = "";
+            while (true)
+            {
+                serverMessage = server.serverMessage;
+                if (serverMessage != "" || serverMessage != previousMessage)
+                {
+                    this.hostDebugTextbox.Items.Add(serverMessage);
+                }
+                previousMessage = serverMessage;
+            }
+        }
+
+        //BUTTONS
         //Join a session button (Join Game)
         private void button1_Click(object sender, EventArgs e)
         {
             joinSessionPanel.Visible = true;
             string ipInput = Microsoft.VisualBasic.Interaction.InputBox("Enter the host ip. If left empty, this will attempt to connect to a local host.", "Join Host Session", "", -1, -1);
-            if(ipInput.Length == 0)
+            if (ipInput.Length == 0)
             {
                 clientDebugTextbox.Items.Add("Attempting to join a local host...");
             }
@@ -34,10 +60,10 @@ namespace Barricade
             {
                 clientDebugTextbox.Items.Add("Attempting to join " + ipInput + "...");
             }
-            Client.ClientConnect(ipInput);
+            client.ClientConnect(ipInput);
             //Send string request with loopSend method
 
-            if (Client.clientSocket.Connected)
+            if (client.isConnected())
             {
                 clientDebugTextbox.Items.Add("Client successfully connected to host!");
                 Console.WriteLine("Manual request prompt occuring...");
@@ -50,7 +76,7 @@ namespace Barricade
                     }
                     else
                     {
-                        Client.SendLoop(input);
+                        client.SendLoop(input);
                     }
                 }
             }
@@ -64,10 +90,12 @@ namespace Barricade
         //Create a session button (Host Game)
         private void button2_Click(object sender, EventArgs e)
         {
+            server.CreateServerSocket();
+            ThreadStart childref = new ThreadStart(ListenForServerMessageThread);
+            Console.WriteLine("In Main: Creating the Child thread");
+            Thread childThread = new Thread(childref);
+            childThread.Start();
             hostSessionPanel.Visible = true;
-            Server.CreateServerSocket();
-            //Change to panel that waits for incoming clients to join
-
         }
 
 
@@ -82,8 +110,11 @@ namespace Barricade
         private void button4_Click(object sender, EventArgs e)
         {
             //Close the server socket
+            server.closeServer();
+
+            //Back to main menu
             hostSessionPanel.Visible = false;
-            Server.closeServer();
+            hostDebugTextbox.Items.Clear();
         }
 
         private void hostOptionsButton_Click(object sender, EventArgs e)
@@ -98,6 +129,7 @@ namespace Barricade
              * Information that defines the board should be applied, as well as sent to connected clients.
              */
             gamePanel.Visible = true;
+            hostSessionPanel.Visible = false;
             //Send player indicator to make their game panel visible
             //Send initial info to connected players about game settings, whose turn it is
 
@@ -108,7 +140,26 @@ namespace Barricade
 
         }
 
+        private void exitGameButton_Click(object sender, EventArgs e)
+        {
+            //If clicked, send info to clients game has been manually ended
+            //Disconnect socket
+            //Return to main menu
+            server.closeServer();
+            gamePanel.Visible = false;
+        }
+
+
+        //Textbox-related methods for other classes to access
+        public void hostTextbox(string text)
+        {
+            hostDebugTextbox.Items.Add(text);
+        }
+
+        public void clientTextbox(string text)
+        {
+            clientDebugTextbox.Items.Add(text);
+        }
+
     }
-
-
 }
