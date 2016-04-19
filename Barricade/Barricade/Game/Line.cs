@@ -7,6 +7,9 @@ using System.Drawing;
 
 namespace Barricade
 {
+    /// <summary>
+    /// Line class for creating line objects
+    /// </summary>
     class Line
     {
         Corner Start;
@@ -21,6 +24,14 @@ namespace Barricade
         public int endX;
         public int endY;
 
+        /// <summary>
+        /// Line constructor
+        /// Takes two corners and creates a rectangle between them
+        /// Default color is black
+        /// Line is not selected by default
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
         public Line(Corner c1, Corner c2)
         {
             Start = c1;
@@ -53,6 +64,9 @@ namespace Barricade
             return Selected;
         }
 
+        /// <summary>
+        /// Checks if the Line rectangle is vertical
+        /// </summary>
         public bool Vertical
         {
             get
@@ -61,14 +75,30 @@ namespace Barricade
             }
         }
 
+        /// <summary>
+        /// Draws the line rectangle to the board screen
+        /// </summary>
+        /// <param name="g"></param>
         public void drawLine(Graphics g)
         {
             g.DrawRectangle(Pens.Black, Rec);
         }
 
+        /// <summary>
+        /// Selects the Line for if a player clicks on it
+        /// </summary>
         public void Select()
         {
             Selected = true;
+        }
+
+        public bool Equals(Line other)
+        {
+            if (startX == other.startX && startY == other.startY
+                && endX == other.endX && endY == other.endY)
+                return true;
+            else
+                return false;
         }
     }
 }

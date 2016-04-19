@@ -7,6 +7,9 @@ using System.Drawing;
 
 namespace Barricade
 {
+    /// <summary>
+    /// Box class for creating Box objects
+    /// </summary>
     class Box
     {
         Line Top;
@@ -18,6 +21,15 @@ namespace Barricade
 
         Rectangle Rec;
 
+        /// <summary>
+        /// Box Constructor
+        /// Takes four line objects and creates a box rectangle out of them
+        /// </summary>
+        /// <param name="top"></param>
+        /// <param name="left"></param>
+        /// <param name="bottom"></param>
+        /// <param name="right"></param>
+        /// <param name="player"></param>
         public Box(Line top, Line left, Line bottom, Line right, Player player)
         {
             Top = top;
@@ -29,6 +41,10 @@ namespace Barricade
             Player = player;
         }
 
+        /// <summary>
+        /// drawBox method for drawing a filled in box on the board screen
+        /// </summary>
+        /// <param name="g"></param>
         public void drawBox(Graphics g)
         {
             SolidBrush playerBrush = new SolidBrush(Player.getColor);
