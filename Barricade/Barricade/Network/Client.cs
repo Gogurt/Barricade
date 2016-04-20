@@ -24,6 +24,7 @@ namespace Barricade
     {
         public static Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         
+
         public static Form1 myForm;
         public Client(Form1 form)
         {
@@ -79,21 +80,15 @@ namespace Barricade
             }
         }
 
+
+
         public void SendLoop(string req)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(req);
             clientSocket.Send(buffer);
-
-            //Receiving response
-
-            //byte[] receivedBuf = new byte[1024];
-            //int rec = clientSocket.Receive(receivedBuf);
-            //byte[] data = new byte[rec];
-            //Array.Copy(receivedBuf, data, rec);
-            //Console.WriteLine("Received: " + Encoding.ASCII.GetString(data));
-
         }
 
+    
         public static void Disconnect()
         {
             byte[] buffer = Encoding.ASCII.GetBytes("Client Disconnect");

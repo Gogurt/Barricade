@@ -28,24 +28,6 @@ namespace Barricade
             client = new Client(this);
         }
 
-        /*
-         * This thread does not work. Crosshatch error keeps coming back.
-         */
-        public void ListenForServerMessageThread()
-        {
-            string serverMessage = "";
-            string previousMessage = "";
-            while (true)
-            {
-                serverMessage = server.serverMessage;
-                if (serverMessage != "" || serverMessage != previousMessage)
-                {
-                    this.hostDebugTextbox.Items.Add(serverMessage);
-                }
-                previousMessage = serverMessage;
-            }
-        }
-
         //BUTTONS
         //Join a session button (Join Game)
         private void button1_Click(object sender, EventArgs e)
@@ -60,6 +42,7 @@ namespace Barricade
             {
                 clientDebugTextbox.Items.Add("Attempting to join " + ipInput + "...");
             }
+
             client.ClientConnect(ipInput);
             //Send string request with loopSend method
 
@@ -77,6 +60,7 @@ namespace Barricade
                     else
                     {
                         client.SendLoop(input);
+                        clientTextbox("Sending " + input);
                     }
                 }
             }
@@ -91,10 +75,6 @@ namespace Barricade
         private void button2_Click(object sender, EventArgs e)
         {
             server.CreateServerSocket();
-            ThreadStart childref = new ThreadStart(ListenForServerMessageThread);
-            Console.WriteLine("In Main: Creating the Child thread");
-            Thread childThread = new Thread(childref);
-            childThread.Start();
             hostSessionPanel.Visible = true;
         }
 
@@ -148,7 +128,6 @@ namespace Barricade
             server.closeServer();
             gamePanel.Visible = false;
         }
-
 
         //Textbox-related methods for other classes to access
         public void hostTextbox(string text)

@@ -23,16 +23,13 @@ namespace Barricade
      */
     public class Server
     {
-
         static int turn;
         static int numberOfPlayers;
 
         //Net-related
         private static byte[] buffer = new byte[1024];
-        private static List<Socket> clientSockets = new List<Socket>();
+        private static List<Socket> connectedSocketList = new List<Socket>();
         public static Socket serverSocket;
-        
-        public string serverMessage = "";
 
         //Set 
         public static Form1 myForm = null;
@@ -46,6 +43,7 @@ namespace Barricade
         {
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Console.WriteLine("Setting up the server...");
+            numberOfPlayers = 1;
             serverSocket.Bind(new IPEndPoint(IPAddress.Any, 8000));
             serverSocket.Listen(5);
             
@@ -62,12 +60,23 @@ namespace Barricade
             {
                 
                 socket = serverSocket.EndAccept(AR);
-                clientSockets.Add(socket);
-                Console.WriteLine("Player " + (clientSockets.Count + 1).ToString() + " has connected!");
-                //TELL HOST THEY CONNECTED ON FORM
-                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add("Player " + (clientSockets.Count + 1).ToString() + " has connected!")));
-                
                 numberOfPlayers++;
+                connectedSocketList.Add(socket);
+                string playerAcceptMessage = "Player " + (connectedSocketList.Count + 1).ToString() + " has connected!";
+
+                Console.WriteLine(playerAcceptMessage);
+                //TELL HOST THEY CONNECTED ON FORM
+                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(playerAcceptMessage)));
+                try
+                {
+                    broadcastToClients(socket, playerAcceptMessage);
+                }
+                catch(Exception e)
+                {
+                    myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add("Failed to send to all connected clients.")));
+                }
+                
+
                 socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
                 serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
             }
@@ -115,19 +124,41 @@ namespace Barricade
             }
         }
 
-        private void SendCallback(IAsyncResult AR)
+        private static void SendCallback(IAsyncResult AR)
         {
             Socket socket = (Socket)AR.AsyncState;
             socket.EndSend(AR);
         }
 
+        private static void send(Socket client, String data)
+        {
+            // Convert the string data to byte data using ASCII encoding.
+            byte[] byteData = Encoding.ASCII.GetBytes(data);
+
+            // Begin sending the data to the remote device.
+            client.BeginSend(byteData, 0, byteData.Length, SocketFlags.None, new AsyncCallback(SendCallback), client);
+        }
+
         public void closeServer()
         {
+            //Communicate to connected clients they should close their server sockets
+
             serverSocket.Close(1);
-            
+        }
+
+        public void broadcastToClients(Socket socket, string text)
+        {
+            for(int i = 0; i < connectedSocketList.Count; i++)
+            {
+                if(socket != connectedSocketList.ElementAt(i))
+                {
+                    send(connectedSocketList.ElementAt(i), text);
+                }
+            }
         }
 
         
 
     }
+
 }
