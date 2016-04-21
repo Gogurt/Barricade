@@ -59,7 +59,16 @@ namespace Barricade
                 }
             }
 
-            //Create all the boxes
+            /*Create all the boxes
+             *
+             * The boxes are populated in a two dimensional array
+             * in the following way:
+             * 00 01 02
+             * 10 11 12
+             * 20 21 22
+             * 
+             * For example, the upper right box is boardBoxes[0][2]
+             */
             List<List<PictureBox>> boardBoxes = new List<List<PictureBox>>();
             for (int i = 0; i < c-1; i++)
             {
@@ -78,7 +87,14 @@ namespace Barricade
                 }
             }
 
-            //Create all the horizontal lines
+            /*Create all the horizontal lines
+             * 
+             * The lines are populated in a two dimensional array
+             * in the following way:
+             * 00 01 02
+             * 10 11 12
+             * 20 21 22
+             */
             List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
             for (int i = 0; i < c - 1; i++)
             {
@@ -98,7 +114,14 @@ namespace Barricade
                 }
             }
 
-            //Create all the vertical lines
+            /*Create all the vertical lines
+             * 
+             * The lines are populated in a two dimensional array
+             * in the following way:
+             * 00 01 02
+             * 10 11 12
+             * 20 21 22
+             */
             List<List<PictureBox>> boardLinesV = new List<List<PictureBox>>();
             for (int i = 0; i < c; i++)
             {
