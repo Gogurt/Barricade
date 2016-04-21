@@ -39,7 +39,7 @@ namespace Barricade
         private void Form1_Load(object sender, EventArgs e)
         {
 
-
+            //Create all the dots
             List<PictureBox> boardDots = new List<PictureBox>();
             int x = 0;
             for (int i = 0; i < c; i++)
@@ -59,6 +59,26 @@ namespace Barricade
                 }
             }
 
+            //Create all the boxes
+            List<List<PictureBox>> boardBoxes = new List<List<PictureBox>>();
+            for (int i = 0; i < c-1; i++)
+            {
+                boardBoxes.Add(new List<PictureBox>());
+                for (int j = 0; j < r-1; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = this.BackColor; //Boxes start the same color as the form itself.
+                    newBox.Height = lineLength;
+                    newBox.Width = lineLength;
+                    int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    this.gamePanel.Controls.Add(newBox);
+                    boardBoxes[i].Add(newBox);
+                }
+            }
+
+            //Create all the horizontal lines
             List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
             for (int i = 0; i < c - 1; i++)
             {
@@ -78,6 +98,7 @@ namespace Barricade
                 }
             }
 
+            //Create all the vertical lines
             List<List<PictureBox>> boardLinesV = new List<List<PictureBox>>();
             for (int i = 0; i < c; i++)
             {
