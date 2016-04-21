@@ -28,6 +28,83 @@ namespace Barricade
             client = new Client(this);
         }
 
+        int c = 6; //Number of rows
+        int r = 6; //Number of columns
+        int dotSize = 10; //Dot size in pixels
+        int lineLength = 30; //Length of a line in pixels
+        int baseVerticalOffset = 30;
+        int baseHorizontalOffset = 30;
+
+        //On form load, do this...
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+
+            List<PictureBox> boardDots = new List<PictureBox>();
+            int x = 0;
+            for (int i = 0; i < c; i++)
+            {
+                for (int j = 0; j < r; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = Color.Black;
+                    newBox.Height = dotSize;
+                    newBox.Width = dotSize;
+                    int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    this.gamePanel.Controls.Add(newBox);
+                    boardDots.Add(newBox);
+                    x++;
+                }
+            }
+
+            List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
+            for (int i = 0; i < c - 1; i++)
+            {
+                boardLinesH.Add(new List<PictureBox>());
+                for (int j = 0; j < r; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = Color.WhiteSmoke;
+                    newBox.Height = dotSize;
+                    newBox.Width = lineLength;
+                    int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    newBox.MouseClick += Form1_MouseClick;
+                    this.gamePanel.Controls.Add(newBox);
+                    boardLinesH[i].Add(newBox);
+                }
+            }
+
+            List<List<PictureBox>> boardLinesV = new List<List<PictureBox>>();
+            for (int i = 0; i < c; i++)
+            {
+                boardLinesV.Add(new List<PictureBox>());
+                for (int j = 0; j < r - 1; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = Color.WhiteSmoke;
+                    newBox.Height = lineLength;
+                    newBox.Width = dotSize;
+                    int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    newBox.MouseClick += Form1_MouseClick;
+                    this.gamePanel.Controls.Add(newBox);
+                    boardLinesV[i].Add(newBox);
+                }
+            }
+
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            //This governs what happens if any picturebox is clicked.
+
+        }
+
         //BUTTONS
         //Join a session button (Join Game)
         private void button1_Click(object sender, EventArgs e)

@@ -43,9 +43,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.hostGameLabel = new System.Windows.Forms.Label();
             this.gamePanel = new System.Windows.Forms.Panel();
+            this.exitGameButton = new System.Windows.Forms.Button();
             this.gameTextbox = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.exitGameButton = new System.Windows.Forms.Button();
             this.joinSessionPanel.SuspendLayout();
             this.hostSessionPanel.SuspendLayout();
             this.gamePanel.SuspendLayout();
@@ -57,7 +57,7 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.ForeColor = System.Drawing.SystemColors.Control;
             this.button1.Location = new System.Drawing.Point(16, 332);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(203, 59);
             this.button1.TabIndex = 0;
@@ -71,7 +71,7 @@
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.ForeColor = System.Drawing.SystemColors.Control;
             this.button2.Location = new System.Drawing.Point(16, 399);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(203, 59);
             this.button2.TabIndex = 1;
@@ -110,7 +110,7 @@
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.ForeColor = System.Drawing.SystemColors.Control;
             this.button3.Location = new System.Drawing.Point(248, 393);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(203, 59);
             this.button3.TabIndex = 6;
@@ -123,7 +123,7 @@
             this.clientDebugTextbox.FormattingEnabled = true;
             this.clientDebugTextbox.ItemHeight = 16;
             this.clientDebugTextbox.Location = new System.Drawing.Point(17, 28);
-            this.clientDebugTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.clientDebugTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.clientDebugTextbox.Name = "clientDebugTextbox";
             this.clientDebugTextbox.Size = new System.Drawing.Size(645, 356);
             this.clientDebugTextbox.TabIndex = 5;
@@ -157,7 +157,7 @@
             // panel1
             // 
             this.panel1.Location = new System.Drawing.Point(397, 30);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(267, 356);
             this.panel1.TabIndex = 12;
@@ -178,7 +178,7 @@
             this.hostStartButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.hostStartButton.ForeColor = System.Drawing.SystemColors.Control;
             this.hostStartButton.Location = new System.Drawing.Point(461, 393);
-            this.hostStartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hostStartButton.Margin = new System.Windows.Forms.Padding(4);
             this.hostStartButton.Name = "hostStartButton";
             this.hostStartButton.Size = new System.Drawing.Size(203, 59);
             this.hostStartButton.TabIndex = 10;
@@ -191,7 +191,7 @@
             this.hostDebugTextbox.FormattingEnabled = true;
             this.hostDebugTextbox.ItemHeight = 16;
             this.hostDebugTextbox.Location = new System.Drawing.Point(17, 28);
-            this.hostDebugTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hostDebugTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.hostDebugTextbox.Name = "hostDebugTextbox";
             this.hostDebugTextbox.Size = new System.Drawing.Size(369, 356);
             this.hostDebugTextbox.TabIndex = 8;
@@ -202,7 +202,7 @@
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.ForeColor = System.Drawing.SystemColors.Control;
             this.button4.Location = new System.Drawing.Point(17, 393);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(203, 59);
             this.button4.TabIndex = 7;
@@ -233,12 +233,26 @@
             this.gamePanel.TabIndex = 7;
             this.gamePanel.Visible = false;
             // 
+            // exitGameButton
+            // 
+            this.exitGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
+            this.exitGameButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.exitGameButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.exitGameButton.Location = new System.Drawing.Point(16, 395);
+            this.exitGameButton.Margin = new System.Windows.Forms.Padding(4);
+            this.exitGameButton.Name = "exitGameButton";
+            this.exitGameButton.Size = new System.Drawing.Size(203, 59);
+            this.exitGameButton.TabIndex = 13;
+            this.exitGameButton.Text = "Exit Game";
+            this.exitGameButton.UseVisualStyleBackColor = false;
+            this.exitGameButton.Click += new System.EventHandler(this.exitGameButton_Click);
+            // 
             // gameTextbox
             // 
             this.gameTextbox.FormattingEnabled = true;
             this.gameTextbox.ItemHeight = 16;
             this.gameTextbox.Location = new System.Drawing.Point(417, 28);
-            this.gameTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gameTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.gameTextbox.Name = "gameTextbox";
             this.gameTextbox.Size = new System.Drawing.Size(267, 356);
             this.gameTextbox.TabIndex = 5;
@@ -254,20 +268,6 @@
             this.label3.Text = "Game";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // exitGameButton
-            // 
-            this.exitGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
-            this.exitGameButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.exitGameButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.exitGameButton.Location = new System.Drawing.Point(16, 395);
-            this.exitGameButton.Margin = new System.Windows.Forms.Padding(4);
-            this.exitGameButton.Name = "exitGameButton";
-            this.exitGameButton.Size = new System.Drawing.Size(203, 59);
-            this.exitGameButton.TabIndex = 13;
-            this.exitGameButton.Text = "Exit Game";
-            this.exitGameButton.UseVisualStyleBackColor = false;
-            this.exitGameButton.Click += new System.EventHandler(this.exitGameButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -280,10 +280,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Barricade";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.joinSessionPanel.ResumeLayout(false);
             this.joinSessionPanel.PerformLayout();
             this.hostSessionPanel.ResumeLayout(false);
