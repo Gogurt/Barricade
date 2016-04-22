@@ -35,12 +35,17 @@ namespace Barricade
         int baseVerticalOffset = 30;
         int baseHorizontalOffset = 30;
 
+        //Create array lists to hold all the board objects
+        List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
+        List<List<PictureBox>> boardLinesV = new List<List<PictureBox>>();
+        List<List<PictureBox>> boardBoxes = new List<List<PictureBox>>();
+        List<PictureBox> boardDots = new List<PictureBox>();
+
         //On form load, do this...
         private void Form1_Load(object sender, EventArgs e)
         {
 
             //Create all the dots
-            List<PictureBox> boardDots = new List<PictureBox>();
             int x = 0;
             for (int i = 0; i < c; i++)
             {
@@ -69,7 +74,6 @@ namespace Barricade
              * 
              * For example, the upper right box is boardBoxes[0][2]
              */
-            List<List<PictureBox>> boardBoxes = new List<List<PictureBox>>();
             for (int i = 0; i < c - 1; i++)
             {
                 boardBoxes.Add(new List<PictureBox>());
@@ -95,7 +99,6 @@ namespace Barricade
              * 10 11 12
              * 20 21 22
              */
-            List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
             for (int i = 0; i < c - 1; i++)
             {
                 boardLinesH.Add(new List<PictureBox>());
@@ -122,7 +125,6 @@ namespace Barricade
              * 10 11 12
              * 20 21 22
              */
-            List<List<PictureBox>> boardLinesV = new List<List<PictureBox>>();
             for (int i = 0; i < c; i++)
             {
                 boardLinesV.Add(new List<PictureBox>());
@@ -146,6 +148,32 @@ namespace Barricade
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             //This governs what happens if any picturebox is clicked.
+            PictureBox clicked = (PictureBox)sender; //Typecast
+            clicked.BackColor = Color.RoyalBlue;
+
+            //Check horizontal lines
+            for (int i = 0; i < c - 1; i++)
+            {
+                for (int j = 0; j < r; j++)
+                {
+                    if (clicked.Equals((PictureBox)boardLinesH[i][j]))
+                    {
+                        gameTextbox.Items.Add("Horizontal " + (i + 1) + ", " + (j + 1) + " clicked.");
+                    }
+                }
+            }
+
+            //Check vertical lines
+            for (int i = 0; i < c; i++)
+            {
+                for (int j = 0; j < r - 1; j++)
+                {
+                    if (clicked.Equals((PictureBox)boardLinesV[i][j]))
+                    {
+                        gameTextbox.Items.Add("Vertical " + (i + 1) + ", " + (j + 1) + " clicked.");
+                    }
+                }
+            }
 
         }
 
