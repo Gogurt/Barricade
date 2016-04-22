@@ -22,6 +22,8 @@ namespace Barricade
      */
     public class Client
     {
+        //Net-related
+        private static byte[] buffer = new byte[1024];
         public static Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         
 
@@ -59,6 +61,7 @@ namespace Barricade
             if (clientSocket.Connected)
             {
                 Console.WriteLine("Client connected");
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), clientSocket);
             }
             else
             {
@@ -81,11 +84,33 @@ namespace Barricade
         }
 
 
-
         public void SendLoop(string req)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(req);
             clientSocket.Send(buffer);
+
+            clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), clientSocket);
+        }
+
+        private void ReceiveCallback(IAsyncResult AR)
+        {
+            try
+            {
+                Socket socket = (Socket)AR.AsyncState;
+                int received = socket.EndReceive(AR);
+                //Trims null bytes being sent
+                byte[] dataBuf = new byte[received];
+                Array.Copy(buffer, dataBuf, received);
+
+                string text = Encoding.ASCII.GetString(dataBuf);
+                Console.WriteLine("Text received from host: " + text);
+                myForm.Invoke(new Action(() => myForm.clientTextbox("Text recieved from host: " + text)));
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
     

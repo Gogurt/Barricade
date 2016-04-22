@@ -39,7 +39,7 @@ namespace Barricade
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            //Create all the dots
+
             List<PictureBox> boardDots = new List<PictureBox>();
             int x = 0;
             for (int i = 0; i < c; i++)
@@ -59,42 +59,6 @@ namespace Barricade
                 }
             }
 
-            /*Create all the boxes
-             *
-             * The boxes are populated in a two dimensional array
-             * in the following way:
-             * 00 01 02
-             * 10 11 12
-             * 20 21 22
-             * 
-             * For example, the upper right box is boardBoxes[0][2]
-             */
-            List<List<PictureBox>> boardBoxes = new List<List<PictureBox>>();
-            for (int i = 0; i < c-1; i++)
-            {
-                boardBoxes.Add(new List<PictureBox>());
-                for (int j = 0; j < r-1; j++)
-                {
-                    PictureBox newBox = new PictureBox();
-                    newBox.BackColor = this.BackColor; //Boxes start the same color as the form itself.
-                    newBox.Height = lineLength;
-                    newBox.Width = lineLength;
-                    int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
-                    int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
-                    newBox.Location = new Point(xCoordinate, yCoordinate);
-                    this.gamePanel.Controls.Add(newBox);
-                    boardBoxes[i].Add(newBox);
-                }
-            }
-
-            /*Create all the horizontal lines
-             * 
-             * The lines are populated in a two dimensional array
-             * in the following way:
-             * 00 01 02
-             * 10 11 12
-             * 20 21 22
-             */
             List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
             for (int i = 0; i < c - 1; i++)
             {
@@ -114,14 +78,6 @@ namespace Barricade
                 }
             }
 
-            /*Create all the vertical lines
-             * 
-             * The lines are populated in a two dimensional array
-             * in the following way:
-             * 00 01 02
-             * 10 11 12
-             * 20 21 22
-             */
             List<List<PictureBox>> boardLinesV = new List<List<PictureBox>>();
             for (int i = 0; i < c; i++)
             {

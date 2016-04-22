@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-
 namespace Barricade
 {
     /*
@@ -58,7 +57,6 @@ namespace Barricade
             Socket socket;
             try
             {
-                
                 socket = serverSocket.EndAccept(AR);
                 numberOfPlayers++;
                 connectedSocketList.Add(socket);
@@ -97,7 +95,7 @@ namespace Barricade
                 Array.Copy(buffer, dataBuf, received);
 
                 string text = Encoding.ASCII.GetString(dataBuf);
-                Console.WriteLine("Text received: " + text);
+                Console.WriteLine("Text in socket: " + text);
                 myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(text)));
                 if(text.Equals("Client Disconnect"))
                 {
@@ -107,15 +105,19 @@ namespace Barricade
                 }
                 else
                 {
-                    string response = string.Empty;
+                    string textToSend = string.Empty;
 
                     //text acts as a request, this is where it would be interpreted.
                     //So coordiate information on the current player's turn would be retrieved here,
                     //and then interpreted to send info back to all conncted players.
+                    switch(text)
+                    {
 
-                    byte[] data = Encoding.ASCII.GetBytes(response);
-                    socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
-                    socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+                        default:
+                            broadcastToClients(socket, text);
+                        break;
+                    }
+
                 }
             }
             catch (Exception e)
@@ -148,16 +150,23 @@ namespace Barricade
 
         public void broadcastToClients(Socket socket, string text)
         {
+
             for(int i = 0; i < connectedSocketList.Count; i++)
             {
+                /*
                 if(socket != connectedSocketList.ElementAt(i))
                 {
                     send(connectedSocketList.ElementAt(i), text);
                 }
-            }
-        }
+                */
+                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(text)));
 
-        
+                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add("Sending to player " + (connectedSocketList.Count + 1))));
+                send(connectedSocketList.ElementAt(i), text);
+                connectedSocketList.ElementAt(i).BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), connectedSocketList.ElementAt(i));
+            }
+
+        }
 
     }
 
