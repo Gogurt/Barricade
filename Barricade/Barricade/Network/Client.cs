@@ -110,6 +110,9 @@ namespace Barricade
             {
                 Console.WriteLine(e.ToString());
             }
+
+            clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), clientSocket);
+
         }
 
     
