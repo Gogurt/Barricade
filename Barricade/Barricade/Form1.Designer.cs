@@ -125,6 +125,7 @@
             this.clientDebugTextbox.Location = new System.Drawing.Point(17, 28);
             this.clientDebugTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.clientDebugTextbox.Name = "clientDebugTextbox";
+            this.clientDebugTextbox.ScrollAlwaysVisible = true;
             this.clientDebugTextbox.Size = new System.Drawing.Size(645, 356);
             this.clientDebugTextbox.TabIndex = 5;
             // 
@@ -193,6 +194,7 @@
             this.hostDebugTextbox.Location = new System.Drawing.Point(17, 28);
             this.hostDebugTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.hostDebugTextbox.Name = "hostDebugTextbox";
+            this.hostDebugTextbox.ScrollAlwaysVisible = true;
             this.hostDebugTextbox.Size = new System.Drawing.Size(369, 356);
             this.hostDebugTextbox.TabIndex = 8;
             // 
@@ -254,6 +256,7 @@
             this.gameTextbox.Location = new System.Drawing.Point(417, 28);
             this.gameTextbox.Margin = new System.Windows.Forms.Padding(4);
             this.gameTextbox.Name = "gameTextbox";
+            this.gameTextbox.ScrollAlwaysVisible = true;
             this.gameTextbox.Size = new System.Drawing.Size(267, 356);
             this.gameTextbox.TabIndex = 5;
             // 
