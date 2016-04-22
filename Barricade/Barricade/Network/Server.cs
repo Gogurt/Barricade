@@ -64,7 +64,6 @@ namespace Barricade
 
                 Console.WriteLine(playerAcceptMessage);
                 //TELL HOST THEY CONNECTED ON FORM
-                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(playerAcceptMessage)));
                 try
                 {
                     broadcastToClients(socket, playerAcceptMessage);
@@ -96,7 +95,7 @@ namespace Barricade
 
                 string text = Encoding.ASCII.GetString(dataBuf);
                 Console.WriteLine("Text in socket: " + text);
-                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(text)));
+
                 if(text.Equals("Client Disconnect"))
                 {
                     socket.Disconnect(true);

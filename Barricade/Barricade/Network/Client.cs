@@ -83,11 +83,10 @@ namespace Barricade
             }
         }
 
-
         public void SendLoop(string req)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(req);
-            clientSocket.Send(buffer);
+            byte[] byteData = Encoding.ASCII.GetBytes(req);
+            clientSocket.Send(byteData);
 
             clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), clientSocket);
         }
