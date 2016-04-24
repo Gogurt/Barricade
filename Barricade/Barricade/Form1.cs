@@ -1,6 +1,12 @@
 ﻿/* Barricade Network Game
  * Garrett Leatherman, Jamie Thul, Erik Canton, Matthew Leet
  * 3/31/16
+ * Command Format for sending and interpreting commands between the Server and Client, like turns, connecting, disconneting, ect
+ * Format: [ClientID,CommandText,Body(X,Y)OfPlay]   e.g. string cmd = "1234TURNX5Y4", the ID may have to be a larger number for socket ID
+ * Client turn: "1234TURNX5Y4"
+ * Client Disconnect: "1234DISC", when DISC is read, it will remove client from socket list and close socket
+ * Server Disconnect: "2134SDIS", when SDIS is read by clients, the game will end
+ * If we use socket for ID, then we may need to have more commands indicating server turn
  */
 using System;
 using System.Collections.Generic;
