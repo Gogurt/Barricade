@@ -31,14 +31,42 @@ namespace Barricade
         /// <param name="g"></param>
         public void DrawDot(Point p, Graphics g)
         {
-            p.Offset(-1, -1);
-            g.DrawRectangle(Pens.Black, new Rectangle(p, new Size(5, 5)));
-            
+            SolidBrush brush = new SolidBrush(Color.Black);
+            g.FillRectangle(brush, new Rectangle(p, new Size(10, 10)));
         }
 
         public Point getLocation()
         {
             return Location;
+        }
+
+        public Point LowerRight
+        {
+            get
+            {
+                return new Point(Location.X + 9, Location.Y + 9);
+            }
+        }
+
+        public Point LowerLeft
+        {
+            get
+            {
+                return new Point(Location.X, Location.Y + 9);
+            }
+        }
+
+        public Point UpperRight
+        {
+            get
+            {
+                return new Point(Location.X + 9, Location.Y);
+            }
+        }
+
+        public bool Equals(Corner other)
+        {
+            return Location == (other.Location);
         }
     }
 }

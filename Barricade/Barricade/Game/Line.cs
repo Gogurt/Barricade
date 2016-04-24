@@ -36,12 +36,15 @@ namespace Barricade
         {
             Start = c1;
             End = c2;
-            Color = Color.Black;
+            Color = Color.White;
             startX = Start.getLocation().X;
             startY = Start.getLocation().Y;
             endX = End.getLocation().X;
             endY = End.getLocation().Y;
-            Rec = new Rectangle(startX, startY, endX - startX, endY - startY);
+            if (this.Vertical)
+                Rec = new Rectangle(startX, startY + 10, 10, 30);
+            else
+                Rec = new Rectangle(startX + 10, startY, 30, 10);
             Selected = false;
         }
 
@@ -64,6 +67,30 @@ namespace Barricade
             return Selected;
         }
 
+        public Corner getStart
+        {
+            get
+            {
+                return Start;
+            }
+        }
+
+        public Corner getEnd
+        {
+            get
+            {
+                return End;
+            }
+        }
+
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return Rec;
+            }
+        }
+
         /// <summary>
         /// Checks if the Line rectangle is vertical
         /// </summary>
@@ -79,17 +106,18 @@ namespace Barricade
         /// Draws the line rectangle to the board screen
         /// </summary>
         /// <param name="g"></param>
-        public void drawLine(Graphics g)
+        public void drawLine(Graphics g, SolidBrush brush)
         {
-            g.DrawRectangle(Pens.Black, Rec);
+            g.FillRectangle(brush, Rec);
         }
 
         /// <summary>
         /// Selects the Line for if a player clicks on it
         /// </summary>
-        public void Select()
+        public void Select(Color color)
         {
             Selected = true;
+            this.setColor(color);
         }
 
         public bool Equals(Line other)

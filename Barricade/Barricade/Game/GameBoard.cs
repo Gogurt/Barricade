@@ -46,12 +46,20 @@ namespace Barricade
 
             n_CornerRows = new List<List<Corner>>(n_Rows);
             n_CornerColumns = new List<List<Corner>>(n_Columns);
-            for(int i = 0; i < n_Rows; i++)
+
+            int dotSize = 10;
+            int lineLength = 30;
+            int baseVerticalOffset = 30;
+            int baseHorizontalOffset = 30;
+
+            for (int i = 0; i < n_Rows; i++)
             {
                 List<Corner> row = new List<Corner>(n_Columns);
                 for(int col = 0; col < n_Columns; col++)
                 {
-                    row.Add(new Corner(new Point(col, i)));
+                    int xCoordinate = baseHorizontalOffset + col * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + i * (dotSize + lineLength);
+                    row.Add(new Corner(new Point(xCoordinate, yCoordinate)));
                 }
                 n_CornerRows.Add(row);
             }
@@ -61,7 +69,9 @@ namespace Barricade
                 List<Corner> column = new List<Corner>(n_Rows);
                 for(int i = 0; i < n_Rows; i++)
                 {
-                    column.Add(new Corner(new Point(i, col)));
+                    int xCoordinate = baseHorizontalOffset + col * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + i * (dotSize + lineLength);
+                    column.Add(new Corner(new Point(xCoordinate, yCoordinate)));
                 }
                 n_CornerColumns.Add(column);
             }
@@ -106,6 +116,22 @@ namespace Barricade
             }
         }
 
+        public List<Line> Lines
+        {
+            get
+            {
+                return lines;
+            }
+        }
+
+        public List<Box> Boxes
+        {
+            get
+            {
+                return n_Boxes;
+            }
+        }
+
         /// <summary>
         /// Takes a move by a player and adds it to the moves list and removes it from available moves
         /// Checks if the move made a box using other functions
@@ -113,8 +139,10 @@ namespace Barricade
         /// </summary>
         /// <param name="move"></param>
         /// <param name="p"></param>
-        public void MakeMove(Move move, Player p)
+        public int MakeMove(Move move, Player p)
         {
+            int moveScore = 0;
+
             List<Box> results = SpeculateMove(move, p);
             foreach(Move m in AvailableMoves)
             {
@@ -129,13 +157,17 @@ namespace Barricade
 
             if(results.Count > 0)
             {
+                moveScore += 1;
                 foreach(Box b in results)
                 {
                     n_Boxes.Add(b);
+                    b.setPlayer(p);
                 }
 
                 p.AddScore(results.Count);
             }
+
+            return moveScore;
         }
 
         /// <summary>
@@ -157,13 +189,23 @@ namespace Barricade
         /// <param name="g"></param>
         public void drawBoard(Graphics g)
         {
-            for(int i = 0; i < n_Rows; i++)
+            for (int i = 0; i < n_Rows; i++)
             {
                 List<Corner> row = n_CornerRows[i];
-                foreach(Corner c in row)
+                foreach (Corner c in row)
                 {
                     c.DrawDot(c.getLocation(), g);
                 }
+            }
+        }
+
+        public void drawBoxes(Graphics g, SolidBrush brush)
+        {
+            
+            foreach(Box b in n_Boxes)
+            {
+                brush = new SolidBrush(b.getPlayer.getColor);
+                b.drawBox(g, brush);
             }
         }
 
@@ -191,17 +233,19 @@ namespace Barricade
                     lines.Add(line);
                 }
             }
+
+            PopulateAvailableMoves();
         }
 
         /// <summary>
         /// Goes through the list of lines and draws each to the board screen
         /// </summary>
         /// <param name="g"></param>
-        public void drawLines(Graphics g)
+        public void drawLines(Graphics g, SolidBrush brush)
         {
             foreach(Line l in lines)
             {
-                l.drawLine(g);
+                l.drawLine(g, brush);
             }
         }
 
@@ -238,16 +282,16 @@ namespace Barricade
             {
                 case MoveDirection.Up:
                     {
-                        if (!(move.getLine as Line).Vertical)
+                        if (!(move.getLine.Vertical))
                         {
                             upper = move.getLine;
                             foreach(Line l in lines)
                             {
-                                if (l.startX == upper.startX)
+                                if ((l.getStart.getLocation() == (upper.getStart.getLocation())) && l.Vertical)
                                     left = l;
-                                if (l.startX == upper.endX)
+                                if ((l.getStart.getLocation().X == (upper.getStart.getLocation().X + 40)) && (l.getStart.getLocation().Y == upper.getStart.getLocation().Y) && l.Vertical)
                                     right = l;
-                                if ((l.startX + 1) == upper.startX)
+                                if ((l.getStart.getLocation().Y == (upper.getStart.getLocation().Y + 40)) && (l.getStart.getLocation().X == upper.getStart.getLocation().X) && !l.Vertical)
                                     lower = l;
                             }
                             
@@ -261,11 +305,11 @@ namespace Barricade
                             lower = move.getLine;
                             foreach(Line l in lines)
                             {
-                                if (l.endX == lower.startX)
+                                if ((l.getStart.getLocation().Y + 40 == (lower.getStart.getLocation().Y)) && (l.getStart.getLocation().X == lower.getStart.getLocation().X) && l.Vertical)
                                     left = l;
-                                if (l.endX == lower.endX)
+                                if (((l.getStart.getLocation().Y + 40) == (lower.getStart.getLocation().Y)) && (l.getStart.getLocation().X == (lower.getStart.getLocation().X + 40)) && l.Vertical)
                                     right = l;
-                                if (l.startX == (lower.startX + 1))
+                                if (((l.getStart.getLocation().Y + 40) == (lower.getStart.getLocation().Y)) && (l.getStart.getLocation().X == lower.getStart.getLocation().X) && !l.Vertical)
                                     upper = l;
                             }
                         }
@@ -278,11 +322,11 @@ namespace Barricade
                             left = move.getLine;
                             foreach(Line l in lines)
                             {
-                                if (l.startX == left.startX)
+                                if ((l.getStart.getLocation() == (left.getStart.getLocation())) && !l.Vertical)
                                     upper = l;
-                                if (l.startX == left.endX)
+                                if ((l.getStart.getLocation().Y == (left.getStart.getLocation().Y + 40)) && (l.getStart.getLocation().X == left.getStart.getLocation().X) && !l.Vertical)
                                     lower = l;
-                                if (l.startX == (left.startX + 1))
+                                if (((l.getStart.getLocation().X) == (left.getStart.getLocation().X + 40)) && (l.getStart.getLocation().Y == left.getStart.getLocation().Y) && l.Vertical)
                                     right = l;
                             }
                         }
@@ -295,11 +339,11 @@ namespace Barricade
                             right = move.getLine;
                             foreach(Line l in lines)
                             {
-                                if (l.endX == right.startX)
+                                if (((l.getStart.getLocation().X + 40) == (right.getStart.getLocation().X)) && (l.getStart.getLocation().Y == right.getStart.getLocation().Y) && !l.Vertical)
                                     upper = l;
-                                if (l.endX == right.endX)
+                                if ((l.getStart.getLocation().X + 40 == (right.getStart.getLocation().X)) && (l.getStart.getLocation().Y == right.getStart.getLocation().Y + 40) && !l.Vertical)
                                     lower = l;
-                                if ((l.startX + 1) == right.startX)
+                                if (((l.getStart.getLocation().X + 40) == (right.getStart.getLocation().X))  && (l.getStart.getLocation().Y == right.getStart.getLocation().Y) && l.Vertical)
                                     left = l;
                             }
                         }

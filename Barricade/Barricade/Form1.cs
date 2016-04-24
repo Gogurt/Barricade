@@ -19,7 +19,11 @@ namespace Barricade
     {
         static Server server;
         static Client client;
-        
+
+        GameBoard gb;
+        Game.Game barricade;
+        Thread gameThread;
+        Graphics graphics;
 
         public Form1()
         {
@@ -46,23 +50,23 @@ namespace Barricade
         {
 
             //Create all the dots
-            int x = 0;
-            for (int i = 0; i < c; i++)
-            {
-                for (int j = 0; j < r; j++)
-                {
-                    PictureBox newBox = new PictureBox();
-                    newBox.BackColor = Color.Black;
-                    newBox.Height = dotSize;
-                    newBox.Width = dotSize;
-                    int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
-                    int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
-                    newBox.Location = new Point(xCoordinate, yCoordinate);
-                    this.gamePanel.Controls.Add(newBox);
-                    boardDots.Add(newBox);
-                    x++;
-                }
-            }
+            //int x = 0;
+            //for (int i = 0; i < c; i++)
+            //{
+            //    for (int j = 0; j < r; j++)
+            //    {
+            //        PictureBox newBox = new PictureBox();
+            //        newBox.BackColor = Color.Black;
+            //        newBox.Height = dotSize;
+            //        newBox.Width = dotSize;
+            //        int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
+            //        int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
+            //        newBox.Location = new Point(xCoordinate, yCoordinate);
+            //        this.gamePanel.Controls.Add(newBox);
+            //        boardDots.Add(newBox);
+            //        x++;
+            //    }
+            //}
 
             /*Create all the boxes
              *
@@ -74,22 +78,22 @@ namespace Barricade
              * 
              * For example, the upper right box is boardBoxes[0][2]
              */
-            for (int i = 0; i < c - 1; i++)
-            {
-                boardBoxes.Add(new List<PictureBox>());
-                for (int j = 0; j < r - 1; j++)
-                {
-                    PictureBox newBox = new PictureBox();
-                    newBox.BackColor = this.BackColor; //Boxes start the same color as the form itself.
-                    newBox.Height = lineLength;
-                    newBox.Width = lineLength;
-                    int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
-                    int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
-                    newBox.Location = new Point(xCoordinate, yCoordinate);
-                    this.gamePanel.Controls.Add(newBox);
-                    boardBoxes[i].Add(newBox);
-                }
-            }
+            //for (int i = 0; i < c - 1; i++)
+            //{
+            //    boardBoxes.Add(new List<PictureBox>());
+            //    for (int j = 0; j < r - 1; j++)
+            //    {
+            //        PictureBox newBox = new PictureBox();
+            //        newBox.BackColor = this.BackColor; //Boxes start the same color as the form itself.
+            //        newBox.Height = lineLength;
+            //        newBox.Width = lineLength;
+            //        int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
+            //        int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
+            //        newBox.Location = new Point(xCoordinate, yCoordinate);
+            //        this.gamePanel.Controls.Add(newBox);
+            //        boardBoxes[i].Add(newBox);
+            //    }
+            //}
 
             /*Create all the horizontal lines
              * 
@@ -99,23 +103,23 @@ namespace Barricade
              * 10 11 12
              * 20 21 22
              */
-            for (int i = 0; i < c - 1; i++)
-            {
-                boardLinesH.Add(new List<PictureBox>());
-                for (int j = 0; j < r; j++)
-                {
-                    PictureBox newBox = new PictureBox();
-                    newBox.BackColor = Color.WhiteSmoke;
-                    newBox.Height = dotSize;
-                    newBox.Width = lineLength;
-                    int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
-                    int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
-                    newBox.Location = new Point(xCoordinate, yCoordinate);
-                    newBox.MouseClick += Form1_MouseClick;
-                    this.gamePanel.Controls.Add(newBox);
-                    boardLinesH[i].Add(newBox);
-                }
-            }
+            //for (int i = 0; i < c - 1; i++)
+            //{
+            //    boardLinesH.Add(new List<PictureBox>());
+            //    for (int j = 0; j < r; j++)
+            //    {
+            //        PictureBox newBox = new PictureBox();
+            //        newBox.BackColor = Color.WhiteSmoke;
+            //        newBox.Height = dotSize;
+            //        newBox.Width = lineLength;
+            //        int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
+            //        int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
+            //        newBox.Location = new Point(xCoordinate, yCoordinate);
+            //        newBox.MouseClick += Form1_MouseClick;
+            //        this.gamePanel.Controls.Add(newBox);
+            //        boardLinesH[i].Add(newBox);
+            //    }
+            //}
 
             /*Create all the vertical lines
              * 
@@ -125,56 +129,78 @@ namespace Barricade
              * 10 11 12
              * 20 21 22
              */
-            for (int i = 0; i < c; i++)
-            {
-                boardLinesV.Add(new List<PictureBox>());
-                for (int j = 0; j < r - 1; j++)
-                {
-                    PictureBox newBox = new PictureBox();
-                    newBox.BackColor = Color.WhiteSmoke;
-                    newBox.Height = lineLength;
-                    newBox.Width = dotSize;
-                    int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
-                    int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
-                    newBox.Location = new Point(xCoordinate, yCoordinate);
-                    newBox.MouseClick += Form1_MouseClick;
-                    this.gamePanel.Controls.Add(newBox);
-                    boardLinesV[i].Add(newBox);
-                }
-            }
+            //for (int i = 0; i < c; i++)
+            //{
+            //    boardLinesV.Add(new List<PictureBox>());
+            //    for (int j = 0; j < r - 1; j++)
+            //    {
+            //        PictureBox newBox = new PictureBox();
+            //        newBox.BackColor = Color.WhiteSmoke;
+            //        newBox.Height = lineLength;
+            //        newBox.Width = dotSize;
+            //        int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
+            //        int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
+            //        newBox.Location = new Point(xCoordinate, yCoordinate);
+            //        newBox.MouseClick += Form1_MouseClick;
+            //        this.gamePanel.Controls.Add(newBox);
+            //        boardLinesV[i].Add(newBox);
+            //    }
+            //}
+        }
+
+        void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            //This governs what happens if any picturebox is clicked.
+            //PictureBox clicked = (PictureBox)sender; //Typecast
+            //clicked.BackColor = Color.RoyalBlue;
+
+            //Check horizontal lines
+            //for (int i = 0; i < c - 1; i++)
+            //{
+            //    for (int j = 0; j < r; j++)
+            //    {
+            //        if (clicked.Equals((PictureBox)boardLinesH[i][j]))
+            //        {
+            //            gameTextbox.Items.Add("Horizontal " + (i + 1) + ", " + (j + 1) + " clicked.");
+            //        }
+            //    }
+            //}
+
+            ////Check vertical lines
+            //for (int i = 0; i < c; i++)
+            //{
+            //    for (int j = 0; j < r - 1; j++)
+            //    {
+            //        if (clicked.Equals((PictureBox)boardLinesV[i][j]))
+            //        {
+            //            gameTextbox.Items.Add("Vertical " + (i + 1) + ", " + (j + 1) + " clicked.");
+            //        }
+            //    }
+            //}
 
         }
 
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        void DrawBoard()
         {
-            //This governs what happens if any picturebox is clicked.
-            PictureBox clicked = (PictureBox)sender; //Typecast
-            clicked.BackColor = Color.RoyalBlue;
+            Player[] players = new Player[3];
+            players[0] = new Player("player 1", Color.Red);
+            players[1] = new Player("player 2", Color.RoyalBlue);
+            players[2] = new Player("player 3", Color.SeaGreen);
 
-            //Check horizontal lines
-            for (int i = 0; i < c - 1; i++)
-            {
-                for (int j = 0; j < r; j++)
-                {
-                    if (clicked.Equals((PictureBox)boardLinesH[i][j]))
-                    {
-                        gameTextbox.Items.Add("Horizontal " + (i + 1) + ", " + (j + 1) + " clicked.");
-                    }
-                }
-            }
+            gb = new GameBoard(7, 7);
+            barricade = new Game.Game(players, gb);
 
-            //Check vertical lines
-            for (int i = 0; i < c; i++)
-            {
-                for (int j = 0; j < r - 1; j++)
-                {
-                    if (clicked.Equals((PictureBox)boardLinesV[i][j]))
-                    {
-                        gameTextbox.Items.Add("Vertical " + (i + 1) + ", " + (j + 1) + " clicked.");
-                    }
-                }
-            }
+            gameThread = new Thread(new ParameterizedThreadStart(this.StartGame));
+            gameThread.Start(graphics);
 
+            gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
+        }
+
+
+        void StartGame(object obj)
+        {
+            graphics = gamePanel.CreateGraphics();
+            barricade.Start(graphics);
         }
 
         //BUTTONS
@@ -259,6 +285,7 @@ namespace Barricade
              */
             gamePanel.Visible = true;
             hostSessionPanel.Visible = false;
+            DrawBoard();
             //Send player indicator to make their game panel visible
             //Send initial info to connected players about game settings, whose turn it is
 
@@ -275,6 +302,8 @@ namespace Barricade
             //Disconnect socket
             //Return to main menu
             server.closeServer();
+            gameTextbox.Items.Clear();
+            gameThread.Abort();
             gamePanel.Visible = false;
         }
 
@@ -289,5 +318,22 @@ namespace Barricade
             clientDebugTextbox.Items.Add(text);
         }
 
+        private void gamePanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            Color lineColor = barricade.CurrentPlayer.getColor;
+
+            foreach (Line l in gb.Lines)
+            {
+                if (l.Rectangle.Contains(e.Location))
+                {
+                    if (!l.isSelected())
+                    {
+                        l.Select(lineColor);
+                    }
+                }
+            }
+
+            gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
+        }
     }
 }

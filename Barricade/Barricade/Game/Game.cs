@@ -18,6 +18,8 @@ namespace Barricade.Game
         int currentPlayer = 0;
         int movesPerTurn = 1;
 
+        SolidBrush brush;
+
         /// <summary>
         /// Game Constructor
         /// Instantiates the gameboard and a list of players
@@ -37,7 +39,7 @@ namespace Barricade.Game
         /// <summary>
         /// returns player whose move it is
         /// </summary>
-        private Player CurrentPlayer
+        public Player CurrentPlayer
         {
             get
             {
@@ -49,7 +51,7 @@ namespace Barricade.Game
         /// returns the next player whose move it is
         /// </summary>
         /// <returns></returns>
-        private Player NextPlayer()
+        public Player NextPlayer()
         {
             currentPlayer++;
             if(currentPlayer >= Players.Count)
@@ -67,32 +69,71 @@ namespace Barricade.Game
         /// <param name="g"></param>
         public void Start(Graphics g)
         {
+            brush = new SolidBrush(Color.White);
+
             Gameboard.drawBoard(g);
             Gameboard.addLines();
-            Gameboard.drawLines(g);
+            Gameboard.drawLines(g, brush);
 
             int playerMovesRemaining = movesPerTurn;
-            while(Gameboard.MovesRemaining > 0)
+
+            while (Gameboard.MovesRemaining > 0)
             {
                 Move move = null;
-                while(true)
+                int moveScore;
+                while (true)
                 {
-                    //Handle player line click event
-                    break;
+                    
+                    move = getNextMove();
+                    if (move != null)
+                    {
+                        brush = new SolidBrush(Color.DarkGray);
+                        move.getLine.drawLine(g, brush);
+                        break;
+                    }
+
                 }
 
+                moveScore = Gameboard.MakeMove(move, CurrentPlayer);
                 playerMovesRemaining--;
 
-                //Handle box creation equals extra move
+                if(moveScore == 1)
+                {
+                    brush = null;
+                    Gameboard.drawBoxes(g, brush);
+                    playerMovesRemaining++;
+                }
 
-                //Handle update to gameboard
-
-                if(playerMovesRemaining == 0)
+                if (playerMovesRemaining == 0)
                 {
                     NextPlayer();
                     playerMovesRemaining = movesPerTurn;
                 }
             }
+
+            StringBuilder sb = new StringBuilder();
+            foreach (Player p in Players)
+            {
+                sb.AppendFormat("{0}: {1}\n", p.getName, p.getScore);
+            }
+
+            System.Windows.Forms.MessageBox.Show(sb.ToString());
+        }
+
+        Move getNextMove()
+        {
+            Move move = null;
+
+            foreach(Move m in Gameboard.AvailableMoves)
+            {
+                if(m.getLine.isSelected())
+                {
+                    move = m;
+                    break;
+                }
+            }
+
+            return move;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Barricade
 
         Rectangle Rec;
 
+
         /// <summary>
         /// Box Constructor
         /// Takes four line objects and creates a box rectangle out of them
@@ -36,7 +37,7 @@ namespace Barricade
             Left = left;
             Bottom = bottom;
             Right = right;
-            Rec = new Rectangle(top.startX, top.startY, left.getTop(), bottom.getTop());
+            Rec = new Rectangle(top.startX + 10, top.startY + 10, 30, 30);
 
             Player = player;
         }
@@ -45,10 +46,9 @@ namespace Barricade
         /// drawBox method for drawing a filled in box on the board screen
         /// </summary>
         /// <param name="g"></param>
-        public void drawBox(Graphics g)
+        public void drawBox(Graphics g, SolidBrush brush)
         {
-            SolidBrush playerBrush = new SolidBrush(Player.getColor);
-            g.FillRectangle(playerBrush, Rec);
+            g.FillRectangle(brush, Rec);
         }
 
         public Line getTop
@@ -71,6 +71,17 @@ namespace Barricade
             get { return Right; }
         }
 
+        public void setPlayer(Player player)
+        {
+            Player = player;
+        }
 
+        public Player getPlayer
+        {
+            get
+            {
+                return Player;
+            }
+        }
     }
 }

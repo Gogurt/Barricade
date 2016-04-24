@@ -55,3 +55,9 @@ C:\Users\Jamie\Desktop\Barricade\Barricade\Barricade\Barricade\obj\Debug\Barrica
 C:\Users\Jamie\Desktop\Barricade\Barricade\Barricade\Barricade\obj\Debug\Barricade.Form1.resources
 C:\Users\Jamie\Desktop\Barricade\Barricade\Barricade\Barricade\obj\Debug\Barricade.Properties.Resources.resources
 C:\Users\Jamie\Desktop\Barricade\Barricade\Barricade\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\bin\Debug\Barricade.exe
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\bin\Debug\Barricade.pdb
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.csprojResolveAssemblyReference.cache
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.Form1.resources
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.Properties.Resources.resources
+C:\Users\Erik\Documents\GitHub\Barricade\Barricade\Barricade\obj\Debug\Barricade.csproj.GenerateResource.Cache

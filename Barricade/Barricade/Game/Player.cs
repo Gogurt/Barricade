@@ -23,11 +23,11 @@ namespace Barricade
         /// <param name="name"></param>
         /// <param name="color"></param>
         /// <param name="score"></param>
-        protected Player(string name, Color color, int score)
+        public Player(string name, Color color)
         {
             Name = name;
             Color = color;
-            Score = score;
+            Score = 0;
         }
 
         public string getName
@@ -38,6 +38,14 @@ namespace Barricade
         public System.Drawing.Color getColor
         {
             get { return Color; }
+        }
+
+        public int getScore
+        {
+            get
+            {
+                return Score;
+            }
         }
 
         /// <summary>
