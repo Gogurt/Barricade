@@ -101,9 +101,23 @@ namespace Barricade
                 byte[] dataBuf = new byte[received];
                 Array.Copy(buffer, dataBuf, received);
 
-                string text = Encoding.ASCII.GetString(dataBuf);
-                Console.WriteLine("Text received from host: " + text);
-                myForm.Invoke(new Action(() => myForm.clientTextbox("Text recieved from host: " + text)));
+                string receivedCommand = Encoding.ASCII.GetString(dataBuf);
+                Console.WriteLine("Text received from host: " + receivedCommand);
+                myForm.Invoke(new Action(() => myForm.logToGameTextbox("Text recieved from host: " + receivedCommand)));
+
+                //Interpret game logic from host or other connected client here
+                switch(receivedCommand)
+                {
+                    case "GameStart":
+                        myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
+                        myForm.Invoke(new Action(() => myForm.joinSessionPanel.Visible = false));
+
+                    break;
+
+                    default:
+                        myForm.Invoke(new Action(() => myForm.logToGameTextbox("You messed up, friend.")));
+                    break;
+                }
                 
             }
             catch (Exception e)

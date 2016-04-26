@@ -23,7 +23,7 @@ namespace Barricade
         public int startY;
         public int endX;
         public int endY;
-
+        
         /// <summary>
         /// Line constructor
         /// Takes two corners and creates a rectangle between them

@@ -1,0 +1,9 @@
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\bin\Release\Barricade.exe.config
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\bin\Release\Barricade.exe
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\bin\Release\Barricade.pdb
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.csprojResolveAssemblyReference.cache
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.Form1.resources
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.Properties.Resources.resources
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.csproj.GenerateResource.Cache
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.exe
+C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.pdb

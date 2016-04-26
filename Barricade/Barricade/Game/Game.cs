@@ -26,10 +26,10 @@ namespace Barricade.Game
         /// </summary>
         /// <param name="players"></param>
         /// <param name="board"></param>
-        public Game(Player[] players, GameBoard board)
+        public Game(List<Player> players, GameBoard board)
         {
             Gameboard = board;
-            Players = new List<Player>(players.Length);
+            Players = new List<Player>(players.Count);
             foreach(Player p in players)
             {
                 Players.Add(p);

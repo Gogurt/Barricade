@@ -27,8 +27,8 @@ namespace Barricade
 
         //Net-related
         private static byte[] buffer = new byte[1024];
-        private static List<Socket> connectedSocketList = new List<Socket>();
-        public static Socket serverSocket;
+        public List<Socket> connectedSocketList = new List<Socket>();
+        public Socket serverSocket;
 
         //Set 
         public static Form1 myForm = null;
@@ -152,16 +152,23 @@ namespace Barricade
 
             for(int i = 0; i < connectedSocketList.Count; i++)
             {
-                /*
-                if(socket != connectedSocketList.ElementAt(i))
+                if(socket == null)
                 {
-                    send(connectedSocketList.ElementAt(i), text);
+                        myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("Sending to player " + (connectedSocketList.Count + 1))));
+                        send(connectedSocketList.ElementAt(i), text);
                 }
-                */
-                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(text)));
+                else
+                {
+                    if (socket != connectedSocketList.ElementAt(i))
+                    {
+                        myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("Sending to player " + (connectedSocketList.Count + 1))));
+                        send(connectedSocketList.ElementAt(i), text);
+                    }
+                }
 
-                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add("Sending to player " + (connectedSocketList.Count + 1))));
-                send(connectedSocketList.ElementAt(i), text);
+                
+                myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add(text)));
+
                 connectedSocketList.ElementAt(i).BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), connectedSocketList.ElementAt(i));
             }
 

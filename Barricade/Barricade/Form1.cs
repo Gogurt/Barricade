@@ -31,6 +31,8 @@ namespace Barricade
         Thread gameThread;
         Graphics graphics;
 
+        public Boolean canPlay = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -186,20 +188,29 @@ namespace Barricade
 
         }
 
-        void DrawBoard()
+        private void DrawBoard()
         {
-            Player[] players = new Player[3];
-            players[0] = new Player("player 1", Color.Red);
-            players[1] = new Player("player 2", Color.RoyalBlue);
-            players[2] = new Player("player 3", Color.SeaGreen);
+            List<Player> myPlayerList = new List<Player>();
+            myPlayerList.Add(new Player("player 1", Color.Red, null));
+            for (int i = 0; i < server.connectedSocketList.Count; i++)
+            {
+                myPlayerList.Add(new Player("player " + (i + 2), Color.Red, server.connectedSocketList.ElementAt(i)));
+            }
 
             gb = new GameBoard(7, 7);
-            barricade = new Game.Game(players, gb);
+            barricade = new Game.Game(myPlayerList, gb);
 
             gameThread = new Thread(new ParameterizedThreadStart(this.StartGame));
             gameThread.Start(graphics);
 
             gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
+        }
+
+        public void DrawClientBoard()
+        {
+            //Draw client board method in seperate method to prevent host game logic from being used on the client-side
+
+
         }
 
 
@@ -241,7 +252,7 @@ namespace Barricade
                     else
                     {
                         client.SendLoop(input);
-                        clientTextbox("Sending " + input);
+                        logToGameTextbox("Sending " + input);
                     }
                 }
             }
@@ -289,12 +300,17 @@ namespace Barricade
              * Then, it makes the game board visible to itself and any connected clients.
              * Information that defines the board should be applied, as well as sent to connected clients.
              */
-            gamePanel.Visible = true;
-            hostSessionPanel.Visible = false;
-            DrawBoard();
+            if (server.connectedSocketList.Count != 0)
+            {
+                canPlay = true;
+                gamePanel.Visible = true;
+                hostSessionPanel.Visible = false;
+                DrawBoard();
+
+            }
             //Send player indicator to make their game panel visible
             //Send initial info to connected players about game settings, whose turn it is
-
+            server.broadcastToClients(null, "GameStart");
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -319,27 +335,44 @@ namespace Barricade
             hostDebugTextbox.Items.Add(text);
         }
 
-        public void clientTextbox(string text)
+        public void logToGameTextbox(string text)
         {
-            clientDebugTextbox.Items.Add(text);
+            gameTextbox.Items.Add(text);
         }
 
         private void gamePanel_MouseClick(object sender, MouseEventArgs e)
         {
-            Color lineColor = barricade.CurrentPlayer.getColor;
-
-            foreach (Line l in gb.Lines)
+            if (canPlay)
             {
-                if (l.Rectangle.Contains(e.Location))
+                Color lineColor = barricade.CurrentPlayer.getColor;
+
+                foreach (Line l in gb.Lines)
                 {
-                    if (!l.isSelected())
+                    if (l.Rectangle.Contains(e.Location))
                     {
-                        l.Select(lineColor);
+                        if (!l.isSelected())
+                        {
+                            l.Select(lineColor);
+                        }
                     }
                 }
-            }
+                canPlay = false;
 
-            gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
+                //Network related
+                gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
+                //Check to see if current player is a host or client
+                if(server.serverSocket.Connected)
+                {
+                    //Server send method
+                    server.broadcastToClients(null, "");
+                }
+                else
+                {
+                    //Client send method
+                    
+                }
+            }
+            
         }
     }
 }

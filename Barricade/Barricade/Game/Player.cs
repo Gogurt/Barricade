@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Net.Sockets;
 
 namespace Barricade
 {
@@ -16,6 +17,9 @@ namespace Barricade
         Color Color;
         int Score;
 
+        //Net Info
+        Socket playerSocket;
+
         /// <summary>
         /// Player constructor 
         /// Players have names, a color, and a score
@@ -23,11 +27,13 @@ namespace Barricade
         /// <param name="name"></param>
         /// <param name="color"></param>
         /// <param name="score"></param>
-        public Player(string name, Color color)
+        public Player(string name, Color color, Socket playerSocket)
         {
             Name = name;
             Color = color;
             Score = 0;
+
+            this.playerSocket = playerSocket;
         }
 
         public string getName

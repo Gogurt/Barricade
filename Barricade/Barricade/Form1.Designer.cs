@@ -294,7 +294,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel joinSessionPanel;
+        public System.Windows.Forms.Panel joinSessionPanel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel hostSessionPanel;
         private System.Windows.Forms.Label hostGameLabel;
@@ -303,8 +303,8 @@
         private System.Windows.Forms.Button button4;
         public System.Windows.Forms.ListBox hostDebugTextbox;
         private System.Windows.Forms.Button hostStartButton;
-        private System.Windows.Forms.Panel gamePanel;
-        private System.Windows.Forms.ListBox gameTextbox;
+        public System.Windows.Forms.Panel gamePanel;
+        public System.Windows.Forms.ListBox gameTextbox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
