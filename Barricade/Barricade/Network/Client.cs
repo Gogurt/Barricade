@@ -111,11 +111,11 @@ namespace Barricade
                     case "GameStart":
                         myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
                         myForm.Invoke(new Action(() => myForm.joinSessionPanel.Visible = false));
-
+                        myForm.DrawClientBoard();
                     break;
 
                     default:
-                        myForm.Invoke(new Action(() => myForm.logToGameTextbox("You messed up, friend.")));
+                        myForm.Invoke(new Action(() => myForm.logToGameTextbox("Error: Recieved unknown query from host.")));
                     break;
                 }
                 

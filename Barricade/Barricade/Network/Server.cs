@@ -61,7 +61,7 @@ namespace Barricade
                 numberOfPlayers++;
                 connectedSocketList.Add(socket);
                 string playerAcceptMessage = "Player " + (connectedSocketList.Count + 1).ToString() + " has connected!";
-
+                myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(playerAcceptMessage)));
                 Console.WriteLine(playerAcceptMessage);
                 //TELL HOST THEY CONNECTED ON FORM
                 try
@@ -143,6 +143,7 @@ namespace Barricade
         public void closeServer()
         {
             //Communicate to connected clients they should close their server sockets
+
 
             serverSocket.Close(1);
         }

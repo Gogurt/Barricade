@@ -210,7 +210,13 @@ namespace Barricade
         {
             //Draw client board method in seperate method to prevent host game logic from being used on the client-side
 
+            gb = new GameBoard(7, 7);
+            barricade = new Game.Game(null, gb);
 
+            gameThread = new Thread(new ParameterizedThreadStart(this.StartGame));
+            gameThread.Start(graphics);
+
+            gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
         }
 
 
@@ -241,6 +247,9 @@ namespace Barricade
             if (client.isConnected())
             {
                 clientDebugTextbox.Items.Add("Client successfully connected to host!");
+
+                //For use in sending manual queries to the host
+                /*
                 Console.WriteLine("Manual request prompt occuring...");
                 while (true)
                 {
@@ -255,6 +264,7 @@ namespace Barricade
                         logToGameTextbox("Sending " + input);
                     }
                 }
+                */
             }
             else
             {
@@ -320,13 +330,24 @@ namespace Barricade
 
         private void exitGameButton_Click(object sender, EventArgs e)
         {
-            //If clicked, send info to clients game has been manually ended
-            //Disconnect socket
-            //Return to main menu
-            server.closeServer();
-            gameTextbox.Items.Clear();
-            gameThread.Abort();
-            gamePanel.Visible = false;
+            //Check if current app user is client or host
+            if(server.serverSocket != null)
+            {
+                //If Server, send info to clients game has been manually ended
+                //Disconnect socket
+                //Return to main menu
+                server.closeServer();
+                gameTextbox.Items.Clear();
+                gameThread.Abort();
+                gamePanel.Visible = false;
+            }
+            else
+            {
+                //Client should send info to server that they have disconnected from the game
+
+            }
+
+
         }
 
         //Textbox-related methods for other classes to access
