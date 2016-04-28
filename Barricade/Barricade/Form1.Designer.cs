@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.joinGameButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.joinSessionPanel = new System.Windows.Forms.Panel();
@@ -51,18 +51,18 @@
             this.gamePanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // joinGameButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(12, 270);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 48);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Join Game";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.joinGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
+            this.joinGameButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.joinGameButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.joinGameButton.Location = new System.Drawing.Point(12, 270);
+            this.joinGameButton.Name = "joinGameButton";
+            this.joinGameButton.Size = new System.Drawing.Size(152, 48);
+            this.joinGameButton.TabIndex = 0;
+            this.joinGameButton.Text = "Join Game";
+            this.joinGameButton.UseVisualStyleBackColor = false;
+            this.joinGameButton.Click += new System.EventHandler(this.joinGameClickEvent);
             // 
             // button2
             // 
@@ -75,7 +75,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "Host Game";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.hostButtonClickEvent);
             // 
             // label1
             // 
@@ -179,7 +179,7 @@
             this.hostStartButton.TabIndex = 10;
             this.hostStartButton.Text = "Start Game";
             this.hostStartButton.UseVisualStyleBackColor = false;
-            this.hostStartButton.Click += new System.EventHandler(this.hostStartButton_Click);
+            this.hostStartButton.Click += new System.EventHandler(this.hostStartButtonClickEvent);
             // 
             // hostDebugTextbox
             // 
@@ -201,7 +201,7 @@
             this.button4.TabIndex = 7;
             this.button4.Text = "Back";
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.backButtonClickEvent);
             // 
             // hostGameLabel
             // 
@@ -239,7 +239,7 @@
             this.exitGameButton.TabIndex = 13;
             this.exitGameButton.Text = "Exit Game";
             this.exitGameButton.UseVisualStyleBackColor = false;
-            this.exitGameButton.Click += new System.EventHandler(this.exitGameButton_Click);
+            this.exitGameButton.Click += new System.EventHandler(this.exitGameButtonClickEvent);
             // 
             // gameTextbox
             // 
@@ -273,7 +273,7 @@
             this.Controls.Add(this.hostSessionPanel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.joinGameButton);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Barricade";
@@ -291,7 +291,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button joinGameButton;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Panel joinSessionPanel;

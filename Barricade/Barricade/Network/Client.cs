@@ -110,7 +110,7 @@ namespace Barricade
                 {
                     myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
                     myForm.Invoke(new Action(() => myForm.joinSessionPanel.Visible = false));
-                    myForm.DrawClientBoard();
+                    
                 }
                 else if(receivedCommand.StartsWith("move"))
                 {

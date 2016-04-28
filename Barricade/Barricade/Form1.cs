@@ -26,12 +26,10 @@ namespace Barricade
         static Server server;
         static Client client;
 
-        GameBoard gb;
-        Game.Game barricade;
         Thread gameThread;
         Graphics graphics;
 
-        public Boolean canPlay = false;
+        public Boolean canPlay = true;
 
         public Form1()
         {
@@ -57,178 +55,29 @@ namespace Barricade
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            //Create all the dots
-            //int x = 0;
-            //for (int i = 0; i < c; i++)
-            //{
-            //    for (int j = 0; j < r; j++)
-            //    {
-            //        PictureBox newBox = new PictureBox();
-            //        newBox.BackColor = Color.Black;
-            //        newBox.Height = dotSize;
-            //        newBox.Width = dotSize;
-            //        int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
-            //        int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
-            //        newBox.Location = new Point(xCoordinate, yCoordinate);
-            //        this.gamePanel.Controls.Add(newBox);
-            //        boardDots.Add(newBox);
-            //        x++;
-            //    }
-            //}
-
-            /*Create all the boxes
-             *
-             * The boxes are populated in a two dimensional array
-             * in the following way:
-             * 00 01 02
-             * 10 11 12
-             * 20 21 22
-             * 
-             * For example, the upper right box is boardBoxes[0][2]
-             */
-            //for (int i = 0; i < c - 1; i++)
-            //{
-            //    boardBoxes.Add(new List<PictureBox>());
-            //    for (int j = 0; j < r - 1; j++)
-            //    {
-            //        PictureBox newBox = new PictureBox();
-            //        newBox.BackColor = this.BackColor; //Boxes start the same color as the form itself.
-            //        newBox.Height = lineLength;
-            //        newBox.Width = lineLength;
-            //        int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
-            //        int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
-            //        newBox.Location = new Point(xCoordinate, yCoordinate);
-            //        this.gamePanel.Controls.Add(newBox);
-            //        boardBoxes[i].Add(newBox);
-            //    }
-            //}
-
-            /*Create all the horizontal lines
-             * 
-             * The lines are populated in a two dimensional array
-             * in the following way:
-             * 00 01 02
-             * 10 11 12
-             * 20 21 22
-             */
-            //for (int i = 0; i < c - 1; i++)
-            //{
-            //    boardLinesH.Add(new List<PictureBox>());
-            //    for (int j = 0; j < r; j++)
-            //    {
-            //        PictureBox newBox = new PictureBox();
-            //        newBox.BackColor = Color.WhiteSmoke;
-            //        newBox.Height = dotSize;
-            //        newBox.Width = lineLength;
-            //        int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
-            //        int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
-            //        newBox.Location = new Point(xCoordinate, yCoordinate);
-            //        newBox.MouseClick += Form1_MouseClick;
-            //        this.gamePanel.Controls.Add(newBox);
-            //        boardLinesH[i].Add(newBox);
-            //    }
-            //}
-
-            /*Create all the vertical lines
-             * 
-             * The lines are populated in a two dimensional array
-             * in the following way:
-             * 00 01 02
-             * 10 11 12
-             * 20 21 22
-             */
-            //for (int i = 0; i < c; i++)
-            //{
-            //    boardLinesV.Add(new List<PictureBox>());
-            //    for (int j = 0; j < r - 1; j++)
-            //    {
-            //        PictureBox newBox = new PictureBox();
-            //        newBox.BackColor = Color.WhiteSmoke;
-            //        newBox.Height = lineLength;
-            //        newBox.Width = dotSize;
-            //        int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
-            //        int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
-            //        newBox.Location = new Point(xCoordinate, yCoordinate);
-            //        newBox.MouseClick += Form1_MouseClick;
-            //        this.gamePanel.Controls.Add(newBox);
-            //        boardLinesV[i].Add(newBox);
-            //    }
-            //}
         }
 
         void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            //This governs what happens if any picturebox is clicked.
-            //PictureBox clicked = (PictureBox)sender; //Typecast
-            //clicked.BackColor = Color.RoyalBlue;
-
-            //Check horizontal lines
-            //for (int i = 0; i < c - 1; i++)
-            //{
-            //    for (int j = 0; j < r; j++)
-            //    {
-            //        if (clicked.Equals((PictureBox)boardLinesH[i][j]))
-            //        {
-            //            gameTextbox.Items.Add("Horizontal " + (i + 1) + ", " + (j + 1) + " clicked.");
-            //        }
-            //    }
-            //}
-
-            ////Check vertical lines
-            //for (int i = 0; i < c; i++)
-            //{
-            //    for (int j = 0; j < r - 1; j++)
-            //    {
-            //        if (clicked.Equals((PictureBox)boardLinesV[i][j]))
-            //        {
-            //            gameTextbox.Items.Add("Vertical " + (i + 1) + ", " + (j + 1) + " clicked.");
-            //        }
-            //    }
-            //}
-
+            
         }
 
         private void DrawBoard()
         {
-            List<Player> myPlayerList = new List<Player>();
-            myPlayerList.Add(new Player("player 1", Color.Red, null));
-            for (int i = 0; i < server.connectedSocketList.Count; i++)
-            {
-                myPlayerList.Add(new Player("player " + (i + 2), Color.Red, server.connectedSocketList.ElementAt(i)));
-            }
+            //Draw the board here
 
-            gb = new GameBoard(7, 7);
-            barricade = new Game.Game(myPlayerList, gb);
-
-            gameThread = new Thread(new ParameterizedThreadStart(this.StartGame));
-            gameThread.Start(graphics);
-
-            gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
-        }
-
-        public void DrawClientBoard()
-        {
-            //Draw client board method in seperate method to prevent host game logic from being used on the client-side
-
-            gb = new GameBoard(7, 7);
-            barricade = new Game.Game(null, gb);
-
-            gameThread = new Thread(new ParameterizedThreadStart(this.StartGame));
-            gameThread.Start(graphics);
-
-            logToGameTextbox("It is player 1's turn...");
+            
         }
 
 
         void StartGame(object obj)
         {
-            graphics = gamePanel.CreateGraphics();
-            barricade.Start(graphics);
+            
         }
 
         //BUTTONS
         //Join a session button (Join Game)
-        private void button1_Click(object sender, EventArgs e)
+        private void joinGameClickEvent(object sender, EventArgs e)
         {
             joinSessionPanel.Visible = true;
             string ipInput = Microsoft.VisualBasic.Interaction.InputBox("Enter the host ip. If left empty, this will attempt to connect to a local host.", "Join Host Session", "", -1, -1);
@@ -247,24 +96,7 @@ namespace Barricade
             if (client.isConnected())
             {
                 clientDebugTextbox.Items.Add("Client successfully connected to host!");
-
-                //For use in sending manual queries to the host
-                /*
-                Console.WriteLine("Manual request prompt occuring...");
-                while (true)
-                {
-                    string input = Microsoft.VisualBasic.Interaction.InputBox("Enter your request", "Debug manual request", "", -1, -1);
-                    if (input.ToLower() == "exit")
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        client.SendLoop(input);
-                        logToGameTextbox("Sending " + input);
-                    }
-                }
-                */
+                                
             }
             else
             {
@@ -274,7 +106,7 @@ namespace Barricade
         }
 
         //Create a session button (Host Game)
-        private void button2_Click(object sender, EventArgs e)
+        private void hostButtonClickEvent(object sender, EventArgs e)
         {
             server.CreateServerSocket();
             hostSessionPanel.Visible = true;
@@ -289,7 +121,7 @@ namespace Barricade
             joinSessionPanel.Visible = false;
         }
         //Host session back button
-        private void button4_Click(object sender, EventArgs e)
+        private void backButtonClickEvent(object sender, EventArgs e)
         {
             //Close the server socket
             server.closeServer();
@@ -304,7 +136,7 @@ namespace Barricade
 
         }
 
-        private void hostStartButton_Click(object sender, EventArgs e)
+        private void hostStartButtonClickEvent(object sender, EventArgs e)
         {
             /* At this point, the host should close off any attempts for other clients to join.
              * Then, it makes the game board visible to itself and any connected clients.
@@ -315,8 +147,6 @@ namespace Barricade
                 canPlay = true;
                 gamePanel.Visible = true;
                 hostSessionPanel.Visible = false;
-                DrawBoard();
-
             }
             //Send player indicator to make their game panel visible
             //Send initial info to connected players about game settings, whose turn it is
@@ -328,7 +158,7 @@ namespace Barricade
 
         }
 
-        private void exitGameButton_Click(object sender, EventArgs e)
+        private void exitGameButtonClickEvent(object sender, EventArgs e)
         {
             //Check if current app user is client or host
             if(server.serverSocket != null)
@@ -363,30 +193,20 @@ namespace Barricade
 
         private void gamePanel_MouseClick(object sender, MouseEventArgs e)
         {
-            if (canPlay)
+            if (canPlay) // if true, that means that that person has the next turn
             {
-                Color lineColor = barricade.CurrentPlayer.getColor;
+                //Logic here for on click of a line
 
-                foreach (Line l in gb.Lines)
-                {
-                    if (l.Rectangle.Contains(e.Location))
-                    {
-                        if (!l.isSelected())
-                        {
-                            l.Select(lineColor);
-                        }
-                    }
-                }
                 canPlay = false;
 
                 //Network related
-                gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
+                gameTextbox.Items.Add("Info from on click");
                 //Check to see if current player is a host or client
                 if(server.serverSocket != null)
                 {
                     //Server send method. This is invoked because the host has made the play. Therefore, there is no need to not send
                     //this information to every connected client. That is why the first argument for a client socket is null.
-                    server.broadcastToClients(null, "move " + e.Location.X.ToString() + " " + e.Location.X.ToString() + " " + barricade.CurrentPlayer.getColor.ToString());
+                    server.broadcastToClients(null, "Turn info here e.g. x,y" );
                 }
                 else
                 {
