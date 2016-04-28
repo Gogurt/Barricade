@@ -45,6 +45,9 @@ namespace Barricade
         int baseVerticalOffset = 30;
         int baseHorizontalOffset = 30;
 
+        //Turn tracker
+        Boolean turnNotice = false;
+
         //Create array lists to hold all the board objects
         List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
         List<List<PictureBox>> boardLinesV = new List<List<PictureBox>>();
@@ -55,11 +58,175 @@ namespace Barricade
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            //Create all the dots
+            int x = 0;
+            for (int i = 0; i < c; i++)
+            {
+                for (int j = 0; j < r; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = Color.Black;
+                    newBox.Height = dotSize;
+                    newBox.Width = dotSize;
+                    int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    this.gamePanel.Controls.Add(newBox);
+                    boardDots.Add(newBox);
+                    x++;
+                }
+            }
+
+            /*Create all the boxes
+             *
+             * The boxes are populated in a two dimensional array
+             * in the following way:
+             * 00 01 02
+             * 10 11 12
+             * 20 21 22
+             * 
+             * For example, the upper right box is boardBoxes[0][2]
+             */
+            for (int i = 0; i < c - 1; i++)
+            {
+                boardBoxes.Add(new List<PictureBox>());
+                for (int j = 0; j < r - 1; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = this.BackColor; //Boxes start the same color as the form itself.
+                    newBox.Height = lineLength;
+                    newBox.Width = lineLength;
+                    int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    this.gamePanel.Controls.Add(newBox);
+                    boardBoxes[i].Add(newBox);
+                }
+            }
+
+            /*Create all the horizontal lines
+             * 
+             * The lines are populated in a two dimensional array
+             * in the following way:
+             * 00 01 02
+             * 10 11 12
+             * 20 21 22
+             */
+            for (int i = 0; i < c - 1; i++)
+            {
+                boardLinesH.Add(new List<PictureBox>());
+                for (int j = 0; j < r; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = Color.WhiteSmoke;
+                    newBox.Height = dotSize;
+                    newBox.Width = lineLength;
+                    int xCoordinate = baseHorizontalOffset + dotSize + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    newBox.MouseClick += Form1_MouseClick;
+                    this.gamePanel.Controls.Add(newBox);
+                    boardLinesH[i].Add(newBox);
+                }
+            }
+
+            /*Create all the vertical lines
+             * 
+             * The lines are populated in a two dimensional array
+             * in the following way:
+             * 00 01 02
+             * 10 11 12
+             * 20 21 22
+             */
+            for (int i = 0; i < c; i++)
+            {
+                boardLinesV.Add(new List<PictureBox>());
+                for (int j = 0; j < r - 1; j++)
+                {
+                    PictureBox newBox = new PictureBox();
+                    newBox.BackColor = Color.WhiteSmoke;
+                    newBox.Height = lineLength;
+                    newBox.Width = dotSize;
+                    int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
+                    int yCoordinate = baseVerticalOffset + dotSize + j * (dotSize + lineLength);
+                    newBox.Location = new Point(xCoordinate, yCoordinate);
+                    newBox.MouseClick += Form1_MouseClick;
+                    this.gamePanel.Controls.Add(newBox);
+                    boardLinesV[i].Add(newBox);
+                }
+            }
+
+            //Build the empty board array
+            List<List<String>> gameBoard = new List<List<String>>();
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    gameBoard.Add(new List<String>());
+
+                    //If both coordinates are even (0,2,...10)
+                    if (i % 2 == 0 && j % 2 == 0)
+                    {
+                        //Then it's a dot.
+                        gameBoard[i].Add(".");
+
+                    }//If both coordinates are odd (1,3,...9)
+                    else if ((i + 1) % 2 == 0 && (j + 1) % 2 == 0)
+                    {
+                        //Then it's a box.
+                        gameBoard[i].Add("b");
+
+                    }//Otherwise...
+                    else
+                    {
+                        //Then it's a null line.
+                        gameBoard[i].Add("n");
+                    }
+                }
+            }
         }
 
         void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            
+            if (turnNotice)
+            {
+                //This governs what happens if any picturebox is clicked.
+                PictureBox clicked = (PictureBox)sender; //Typecast
+                clicked.BackColor = Color.RoyalBlue;
+
+                //Check horizontal lines
+                for (int i = 0; i < c - 1; i++)
+                {
+                    for (int j = 0; j < r; j++)
+                    {
+                        if (clicked.Equals((PictureBox)boardLinesH[i][j]))
+                        {
+                            //Text output
+                            gameTextbox.Items.Add("Horizontal " + (i + 1) + ", " + (j + 1) + " clicked.");
+
+                            //Update the board
+
+                        }
+                    }
+                }
+
+                //Check vertical lines
+                for (int i = 0; i < c; i++)
+                {
+                    for (int j = 0; j < r - 1; j++)
+                    {
+                        if (clicked.Equals((PictureBox)boardLinesV[i][j]))
+                        {
+                            //Text output
+                            gameTextbox.Items.Add("Vertical " + (i + 1) + ", " + (j + 1) + " clicked.");
+
+                            //Update the board
+
+                        }
+                    }
+                }
+            }//end if
+
         }
 
         private void DrawBoard()

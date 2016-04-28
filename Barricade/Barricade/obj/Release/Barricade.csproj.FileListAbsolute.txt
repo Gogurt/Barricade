@@ -7,3 +7,6 @@ C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.Propert
 C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.csproj.GenerateResource.Cache
 C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.exe
 C:\Users\Garrett\Desktop\Barricade Local\Barricade\obj\Release\Barricade.pdb
+C:\Users\Jamie\Desktop\Barricade\Barricade\Barricade\Barricade\bin\Release\Barricade.exe.config
+C:\Users\Jamie\Desktop\Barricade\Barricade\Barricade\Barricade\obj\Release\Barricade.exe
+C:\Users\Jamie\Desktop\Barricade\Barricade\Barricade\Barricade\obj\Release\Barricade.pdb
