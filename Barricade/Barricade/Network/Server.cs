@@ -147,10 +147,15 @@ namespace Barricade
 
             serverSocket.Close(1);
         }
+        
+        /*
+         * IMPORTANT: The host needs to be able to use its game class logic to specifically talk to the next player to let them know
+         * they can make their turn.
+         */
 
         public void broadcastToClients(Socket socket, string text)
         {
-
+            
             for(int i = 0; i < connectedSocketList.Count; i++)
             {
                 if(socket == null)

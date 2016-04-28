@@ -216,7 +216,7 @@ namespace Barricade
             gameThread = new Thread(new ParameterizedThreadStart(this.StartGame));
             gameThread.Start(graphics);
 
-            gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
+            logToGameTextbox("It is player 1's turn...");
         }
 
 
@@ -382,10 +382,11 @@ namespace Barricade
                 //Network related
                 gameTextbox.Items.Add(barricade.CurrentPlayer.getName + " : " + barricade.CurrentPlayer.getScore);
                 //Check to see if current player is a host or client
-                if(server.serverSocket.Connected)
+                if(server.serverSocket != null)
                 {
-                    //Server send method
-                    server.broadcastToClients(null, "");
+                    //Server send method. This is invoked because the host has made the play. Therefore, there is no need to not send
+                    //this information to every connected client. That is why the first argument for a client socket is null.
+                    server.broadcastToClients(null, "move " + e.Location.X.ToString() + " " + e.Location.X.ToString() + " " + barricade.CurrentPlayer.getColor.ToString());
                 }
                 else
                 {

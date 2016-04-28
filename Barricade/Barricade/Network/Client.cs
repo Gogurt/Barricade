@@ -106,17 +106,21 @@ namespace Barricade
                 myForm.Invoke(new Action(() => myForm.logToGameTextbox("Text recieved from host: " + receivedCommand)));
 
                 //Interpret game logic from host or other connected client here
-                switch(receivedCommand)
+                if(receivedCommand == "GameStart")
                 {
-                    case "GameStart":
-                        myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
-                        myForm.Invoke(new Action(() => myForm.joinSessionPanel.Visible = false));
-                        myForm.DrawClientBoard();
-                    break;
+                    myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
+                    myForm.Invoke(new Action(() => myForm.joinSessionPanel.Visible = false));
+                    myForm.DrawClientBoard();
+                }
+                else if(receivedCommand.StartsWith("move"))
+                {
+                    //Parse the rest of the update data into the client's game
+                    myForm.Invoke(new Action(() => myForm.logToGameTextbox("Receiving move data... " + receivedCommand)));
 
-                    default:
-                        myForm.Invoke(new Action(() => myForm.logToGameTextbox("Error: Recieved unknown query from host.")));
-                    break;
+                }
+                else
+                {
+                    myForm.Invoke(new Action(() => myForm.logToGameTextbox("Error: Recieved unknown query from host.")));
                 }
                 
             }
