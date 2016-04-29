@@ -43,8 +43,12 @@ namespace Barricade
         int baseVerticalOffset = 30;
         int baseHorizontalOffset = 30;
 
-        //Turn tracker
+        //Booleans
         public Boolean canPlay = true;
+        public Boolean iAmTheHost = true;
+
+        //The Game Board itself
+        public List<List<String>> gameBoard = new List<List<String>>();
 
         //Create array lists to hold all the board objects
         List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
@@ -155,10 +159,9 @@ namespace Barricade
             }
 
             //Build the empty board array
-            List<List<String>> gameBoard = new List<List<String>>();
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 11; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = 0; j < 11; j++)
                 {
                     gameBoard.Add(new List<String>());
 
@@ -201,8 +204,23 @@ namespace Barricade
                         {
                             //Text output
                             gameTextbox.Items.Add("Horizontal " + (i + 1) + ", " + (j + 1) + " clicked.");
+                            
 
                             //Update the board
+                            gameBoard = updateBoard("H", i, j);
+                            gameTextbox.Items.Add(writeBoard(gameBoard));
+                            Console.WriteLine(writeBoard(gameBoard));
+                            Console.WriteLine(writeBoard(readBoard(writeBoard(gameBoard))));
+
+                            //Broadcast the board if the host.
+                            if (iAmTheHost)
+                            {
+                                hostBroadcastBoard();
+                            }
+                            else
+                            {
+                                clientSendBoard();
+                            }
 
                         }
                     }
@@ -219,6 +237,20 @@ namespace Barricade
                             gameTextbox.Items.Add("Vertical " + (i + 1) + ", " + (j + 1) + " clicked.");
 
                             //Update the board
+                            gameBoard = updateBoard("V", i, j);
+                            gameTextbox.Items.Add(writeBoard(gameBoard));
+                            Console.WriteLine(writeBoard(gameBoard));
+                            Console.WriteLine(writeBoard(readBoard(writeBoard(gameBoard))));
+
+                            //Broadcast the board if the host.
+                            if (iAmTheHost)
+                            {
+                                hostBroadcastBoard();
+                            }
+                            else
+                            {
+                                clientSendBoard();
+                            }
 
                         }
                     }
@@ -244,6 +276,7 @@ namespace Barricade
         //Join a session button (Join Game)
         private void joinGameClickEvent(object sender, EventArgs e)
         {
+            iAmTheHost = false;
             joinSessionPanel.Visible = true;
             string ipInput = Microsoft.VisualBasic.Interaction.InputBox("Enter the host ip. If left empty, this will attempt to connect to a local host.", "Join Host Session", "", -1, -1);
             if (ipInput.Length == 0)
@@ -273,6 +306,7 @@ namespace Barricade
         //Create a session button (Host Game)
         private void hostButtonClickEvent(object sender, EventArgs e)
         {
+            iAmTheHost = true;
             server.CreateServerSocket();
             hostSessionPanel.Visible = true;
         }
@@ -380,6 +414,79 @@ namespace Barricade
                 }
             }
             
+        }
+
+        /*
+         * =======================
+         * GAME LOGIC BEGINS BELOW
+         * =======================
+         */
+
+        public List<List<String>> updateBoard(String d, int x, int y)
+        {
+            //Takes a direction and x and y coordinates in and updates the board.
+            List<List<String>> board = new List<List<String>>();
+
+            board = gameBoard;
+            
+            if (d.Equals("H")) //Line is horizontal
+            {
+                board[x*2 +1][y*2] = "|";
+            }
+            else //Line is vertical
+            {
+                board[x*2][y*2 +1] = "|";
+            }
+
+            return board;
+        }
+
+        public String writeBoard(List<List<String>> inputBoard)
+        {
+            //Creates a string version of the board.
+            String board = "";
+            for (int i = 0; i < 11; i++)
+            {
+                for (int j = 0; j < 11; j++)
+                {
+                    board += inputBoard[i][j] + ",";
+                }
+            }
+
+            return board;
+        }
+
+        public List<List<String>> readBoard(String board)
+        {
+            //Takes in a string version of the board and updates the board array
+            List<List<String>> newBoard = new List<List<String>>();
+
+            //Rebuild the board
+            string[] tokenBoard = board.Split(','); //Tokenize it
+            int count = 0;
+            for (int i = 0; i < 11; i++)
+            {
+                newBoard.Add(new List<String>()); //Create a new column
+
+                for (int j = 0; j < 11; j++)
+                {
+                    newBoard[i].Add(tokenBoard[count]);
+                    count++;
+                }
+            }
+
+                return newBoard;
+        }
+
+        public void hostBroadcastBoard()
+        {
+            //Sends out the string from the writeBoard() function to the clients.
+
+        }
+
+        public void clientSendBoard()
+        {
+            //Send the string from the writeBoard() function to the host.
         }
     }
 }
