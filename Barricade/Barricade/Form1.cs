@@ -29,8 +29,6 @@ namespace Barricade
         Thread gameThread;
         Graphics graphics;
 
-        public Boolean canPlay = true;
-
         public Form1()
         {
             InitializeComponent();
@@ -46,7 +44,7 @@ namespace Barricade
         int baseHorizontalOffset = 30;
 
         //Turn tracker
-        Boolean turnNotice = false;
+        public Boolean canPlay = true;
 
         //Create array lists to hold all the board objects
         List<List<PictureBox>> boardLinesH = new List<List<PictureBox>>();
@@ -188,7 +186,7 @@ namespace Barricade
 
         void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (turnNotice)
+            if (canPlay)
             {
                 //This governs what happens if any picturebox is clicked.
                 PictureBox clicked = (PictureBox)sender; //Typecast
