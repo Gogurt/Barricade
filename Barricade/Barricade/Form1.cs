@@ -218,6 +218,7 @@ namespace Barricade
                             //Broadcast the board if the host.
                             if (iAmTheHost)
                             {
+                                hostAssessTurn(0);
                                 hostBroadcastBoard();
                             }
                             else
@@ -549,6 +550,32 @@ namespace Barricade
             if (flag) //If we found an uncompleted box
             {
                 gameContinue = true;
+
+                if (iAmTheHost)
+                {
+                    if (takeAnotherTurn == false)
+                    {
+                        hostBroadcastBoard();
+                        server.iterateToNextPlayer();
+                        canPlay = false;
+                    }
+                    else
+                    {
+                        canPlay = true;
+                    }
+                }
+                else
+                {
+                    if(takeAnotherTurn == true)
+                    {
+                        canPlay = true;
+                    }
+                    else
+                    {
+                        canPlay = false;
+                        clientSendBoard();
+                    }
+                }
             }
             else
             {

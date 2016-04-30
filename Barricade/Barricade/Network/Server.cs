@@ -86,17 +86,19 @@ namespace Barricade
             }
         }
 
-        private void iterateToNextPlayer()
+        public void iterateToNextPlayer()
         {
             currentPlayer++;
+            
             if(currentPlayer > connectedSocketList.Count)
             {
+                //It is the hosts turn
                 currentPlayer = 0;
                 myForm.canPlay = true;
             }
             else
             {
-                send(connectedSocketList.ElementAt(currentPlayer), "CanPlay");
+                send(connectedSocketList.ElementAt(currentPlayer - 1), "CanPlay");
             }
         }
 
@@ -109,29 +111,28 @@ namespace Barricade
                 byte[] dataBuf = new byte[received];
                 Array.Copy(buffer, dataBuf, received);
 
-                string text = Encoding.ASCII.GetString(dataBuf);
-                Console.WriteLine("Text in socket: " + text);
+                string receivedCommand = Encoding.ASCII.GetString(dataBuf);
+                Console.WriteLine("Text in socket: " + receivedCommand);
 
-                if(text.Equals("Client Disconnect"))
+                if (receivedCommand.Equals("Client Disconnect"))
                 {
                     socket.Disconnect(true);
-                
+
                     numberOfPlayers--;
+                }
+                else if (receivedCommand.StartsWith("Update"))
+                {
+                    //Check if any boxes have been filled
+                    //Else send the game board as is to all connected clients
+                    string myGameBoard = receivedCommand.Substring(6);
+                    myForm.hostAssessTurn(currentPlayer);
+                    myForm.hostBroadcastBoard();
+                    iterateToNextPlayer();
                 }
                 else
                 {
-                    string textToSend = string.Empty;
-
-                    //text acts as a request, this is where it would be interpreted.
-                    //So coordiate information on the current player's turn would be retrieved here,
-                    //and then interpreted to send info back to all conncted players.
-                    switch(text)
-                    {
-
-                        default:
-                            broadcastToClients(socket, text);
-                        break;
-                    }
+                    myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add("Failed to interpret received command.")));
+                    
 
                 }
             }

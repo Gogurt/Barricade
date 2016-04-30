@@ -111,12 +111,6 @@ namespace Barricade
                     myForm.Invoke(new Action(() => myForm.joinSessionPanel.Visible = false));
                     
                 }
-                else if(receivedCommand.StartsWith("move"))
-                {
-                    //Parse the rest of the update data into the client's game
-                    myForm.Invoke(new Action(() => myForm.logToGameTextbox("Receiving move data... " + receivedCommand)));
-
-                }
                 else if(receivedCommand == "CanPlay")
                 {
                     myForm.canPlay = true;
