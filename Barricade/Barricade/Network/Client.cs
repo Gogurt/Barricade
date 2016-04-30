@@ -118,6 +118,10 @@ namespace Barricade
                     myForm.Invoke(new Action(() => myForm.logToGameTextbox("Receiving move data... " + receivedCommand)));
 
                 }
+                else if(receivedCommand == "CanPlay")
+                {
+                    myForm.canPlay = true;
+                }
                 else
                 {
                     myForm.Invoke(new Action(() => myForm.logToGameTextbox("Error: Recieved unknown query from host.")));

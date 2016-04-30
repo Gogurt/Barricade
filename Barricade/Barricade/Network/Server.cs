@@ -22,13 +22,15 @@ namespace Barricade
      */
     public class Server
     {
-        static int turn;
         static int numberOfPlayers;
+        static int currentPlayer;
 
         //Net-related
         private static byte[] buffer = new byte[1024];
         public List<Socket> connectedSocketList = new List<Socket>();
         public Socket serverSocket;
+
+
 
         //Set 
         public static Form1 myForm = null;
@@ -81,6 +83,20 @@ namespace Barricade
             {
         
                Console.WriteLine(e.ToString());
+            }
+        }
+
+        private void iterateToNextPlayer()
+        {
+            currentPlayer++;
+            if(currentPlayer > connectedSocketList.Count)
+            {
+                currentPlayer = 0;
+                myForm.canPlay = true;
+            }
+            else
+            {
+                send(connectedSocketList.ElementAt(currentPlayer), "CanPlay");
             }
         }
 

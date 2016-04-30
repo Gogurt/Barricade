@@ -46,6 +46,8 @@ namespace Barricade
         //Booleans
         public Boolean canPlay = true;
         public Boolean iAmTheHost = true;
+        public Boolean gameContinue = true;
+        public Boolean takeAnotherTurn = false;
 
         //The Game Board itself
         public List<List<String>> gameBoard = new List<List<String>>();
@@ -417,9 +419,9 @@ namespace Barricade
         }
 
         /*
-         * =======================
-         * GAME LOGIC BEGINS BELOW
-         * =======================
+         * ============================================================================
+         *                          GAME LOGIC BEGINS BELOW
+         * ============================================================================
          */
 
         public List<List<String>> updateBoard(String d, int x, int y)
@@ -476,6 +478,46 @@ namespace Barricade
             }
 
                 return newBoard;
+        }
+
+        public void hostAssessTurn(String currentPlayer)
+        {
+            //We assume that all boxes have been completed.
+            Boolean flag = false;
+            
+            //We assume that they did not score a point.
+            takeAnotherTurn = false;
+
+            //The host evaluates the board for completed boxes
+            for (int i = 0; i < 11; i++)
+            {
+                for (int j = 0; j < 11; j++)
+                {
+                    if (gameBoard[i][j] == "b")
+                    {
+                        flag = true; //An empty box was found
+
+                        //Check for a box to complete
+                        if (gameBoard[i][j+1] == "|" && gameBoard[i][j-1] == "|" && gameBoard[i+1][j] == "|" && gameBoard[i-1][j] == "|")
+                        {
+                            //That player scored a point and gets another turn
+                            gameBoard[i][j] = currentPlayer;
+                            takeAnotherTurn = true;
+                            flag = false;
+                        }
+                    }
+                }
+            }
+
+            if (flag) //If we found an uncompleted box
+            {
+                gameContinue = true;
+            }
+            else
+            {
+                gameContinue = false;
+            }
+
         }
 
         public void hostBroadcastBoard()
