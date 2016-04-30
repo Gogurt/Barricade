@@ -23,7 +23,7 @@ namespace Barricade
     public class Server
     {
         static int numberOfPlayers;
-        static int currentPlayer;
+        public int currentPlayer = -1;
         public Boolean samePlayerTakeTurn = false;
 
         //Net-related
@@ -91,24 +91,37 @@ namespace Barricade
         {
             if(samePlayerTakeTurn)
             {
-                send(connectedSocketList.ElementAt(currentPlayer), "CanPlay");
-                samePlayerTakeTurn = false;
+                if(currentPlayer == -1)
+                {
+                    //Host bonus turn
+                    myForm.canPlay = true;
+                    samePlayerTakeTurn = false;
+                }
+                else
+                {
+                    //Client bonus turn
+                    send(connectedSocketList.ElementAt(currentPlayer), "CanPlay");
+                    samePlayerTakeTurn = false;
+                }
             }
             else
             {
                 currentPlayer++;
 
-                if (currentPlayer > connectedSocketList.Count)
+                if (currentPlayer >= connectedSocketList.Count)
                 {
                     //It is the hosts turn
-                    currentPlayer = 0;
+                    currentPlayer = -1;
                     myForm.canPlay = true;
+                    myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("It is player " + currentPlayer.ToString() + "'s turn.")));
                 }
                 else
-                {
-                    Socket targetedPlayer = connectedSocketList.ElementAt(currentPlayer - 1);
+                {   
+                    Socket targetedPlayer = connectedSocketList.ElementAt(currentPlayer);
                     send(targetedPlayer, "CanPlay");
+                    myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("It is player " + currentPlayer.ToString() + "'s turn.")));
                 }
+
             }
         }
 
@@ -124,6 +137,8 @@ namespace Barricade
                 string receivedCommand = Encoding.ASCII.GetString(dataBuf);
                 Console.WriteLine("Text in socket: " + receivedCommand);
 
+                myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add(receivedCommand)));
+
                 if (receivedCommand.Equals("Client Disconnect"))
                 {
                     socket.Disconnect(true);
@@ -136,10 +151,20 @@ namespace Barricade
                     //Else send the game board as is to all connected clients
                     string myGameBoard = receivedCommand.Substring(6);
                     
+                    //Update the host's gameBoard
+                    myForm.gameBoard = myForm.readBoard(myGameBoard);
+                    myForm.updateFormBoard();
+
+
                     myForm.hostAssessTurn(currentPlayer);
-                    myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(receivedCommand)));
+                    myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add(receivedCommand)));
                     myForm.hostBroadcastBoard();
-                    iterateToNextPlayer();
+
+                    
+                   if(currentPlayer == -1 && myForm.iAmTheHost)
+                   {
+                       myForm.canPlay = true;
+                   }
                 }
                 else
                 {
@@ -160,7 +185,7 @@ namespace Barricade
             socket.EndSend(AR);
         }
 
-        private void send(Socket client, String data)
+        public void send(Socket client, String data)
         {
             // Convert the string data to byte data using ASCII encoding.
             byte[] byteData = Encoding.ASCII.GetBytes(data);

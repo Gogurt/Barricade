@@ -220,7 +220,7 @@ namespace Barricade
                             if (iAmTheHost)
                             {
                                 canPlay = false;
-                                hostAssessTurn(0);
+                                hostAssessTurn(-1);
                                 hostBroadcastBoard();
                             }
                             else
@@ -254,7 +254,7 @@ namespace Barricade
                             if (iAmTheHost)
                             {
                                 canPlay = false;
-                                hostAssessTurn(0);
+                                hostAssessTurn(-1);
                                 hostBroadcastBoard();
                             }
                             else
@@ -568,7 +568,15 @@ namespace Barricade
                 }
                 else
                 {
-                    canPlay = true;
+                    if(server.currentPlayer == -1)
+                    {
+                        canPlay = true;
+                    }
+                    else
+                    {
+                        server.send(server.connectedSocketList.ElementAt(currentPlayer), "CanPlay");
+                        server.samePlayerTakeTurn = true;
+                    }
                 }
                 
             }
