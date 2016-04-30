@@ -226,7 +226,7 @@
             this.gamePanel.Size = new System.Drawing.Size(525, 382);
             this.gamePanel.TabIndex = 7;
             this.gamePanel.Visible = false;
-            this.gamePanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gamePanel_MouseClick);
+            //this.gamePanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gamePanel_MouseClick);
             // 
             // exitGameButton
             // 

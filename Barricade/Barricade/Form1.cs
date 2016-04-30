@@ -189,6 +189,7 @@ namespace Barricade
             }
         }
 
+        //On picture box click...
         void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             if (canPlay)
@@ -392,7 +393,7 @@ namespace Barricade
             gameTextbox.Items.Add(text);
         }
 
-        private void gamePanel_MouseClick(object sender, MouseEventArgs e)
+        /*private void gamePanel_MouseClick(object sender, MouseEventArgs e)
         {
             if (canPlay) // if true, that means that that person has the next turn
             {
@@ -416,7 +417,7 @@ namespace Barricade
                 }
             }
             
-        }
+        }*/
 
         /*
          * ============================================================================
@@ -456,12 +457,12 @@ namespace Barricade
                         if (gameBoard[i][j+1] == "." && gameBoard[i][j-1] == ".") //If it's a vertical line
                         {
                             //Color it blue
-                            boardLinesV[i/2][j/2 -1].BackColor = Color.RoyalBlue;
+                            boardLinesV[i/2][(j-1)/2].BackColor = Color.RoyalBlue;
                         }
                         else //If it's a horizontal line
                         {
                             //Color it blue
-                            boardLinesH[i/2 -1][j/2].BackColor = Color.RoyalBlue;
+                            boardLinesH[(i-1)/2][j/2].BackColor = Color.RoyalBlue;
 
                         }
                     }
