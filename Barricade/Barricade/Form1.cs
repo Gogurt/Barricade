@@ -482,7 +482,30 @@ namespace Barricade
                     else if (i%2 == 0 && j%2 == 0 && gameBoard[i][j] != "b") //If it's a filled box
                     {
                         //Color it appropriately to the player who scored it
+                        Color playerColor;
+                        switch (gameBoard[i][j])
+                        {
+                            case "-1":
+                                playerColor = Color.CadetBlue;
+                                break;
+                            case "0":
+                                playerColor = Color.Red;
+                                break;
+                            case "1":
+                                playerColor = Color.Green;
+                                break;
+                            case "2":
+                                playerColor = Color.Orange;
+                                break;
+                            case "3":
+                                playerColor = Color.MediumPurple;
+                                break;
+                            default:
+                                playerColor = gamePanel.BackColor;
+                                break;
+                        }
 
+                        boardBoxes[(i-1) / 2][(j-1) / 2].BackColor = playerColor; 
 
                     }
                 }
