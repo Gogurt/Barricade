@@ -261,6 +261,7 @@ namespace Barricade
                             {
                                 canPlay = false;
                                 clientSendBoard();
+
                             }
 
                         }
@@ -548,6 +549,7 @@ namespace Barricade
                             //That player scored a point and gets another turn
                             gameBoard[i][j] = Convert.ToString(currentPlayer);
                             takeAnotherTurn = true;
+                            server.samePlayerTakeTurn = true;
                             flag = false;
                         }
                     }
@@ -558,37 +560,22 @@ namespace Barricade
             {
                 gameContinue = true;
 
-                if (iAmTheHost)
+                if (takeAnotherTurn == false)
                 {
-                    if (takeAnotherTurn == false)
-                    {
-                        hostBroadcastBoard();
-                        server.iterateToNextPlayer();
-                        canPlay = false;
-                    }
-                    else
-                    {
-                        canPlay = true;
-                    }
+                    hostBroadcastBoard();
+                    server.iterateToNextPlayer();
+                    canPlay = false;
                 }
                 else
                 {
-                    logToGameTextbox("takeAnotherTurn: " + takeAnotherTurn.ToString());
-                    Console.WriteLine(takeAnotherTurn.ToString());
-                    if(takeAnotherTurn == true)
-                    {
-                        canPlay = true;
-                    }
-                    else
-                    {
-                        canPlay = false;
-                        clientSendBoard();
-                    }
+                    canPlay = true;
                 }
+                
             }
             else
             {
                 gameContinue = false;
+                logToGameTextbox("Game is over");
             }
 
         }

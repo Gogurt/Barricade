@@ -24,6 +24,7 @@ namespace Barricade
     {
         static int numberOfPlayers;
         static int currentPlayer;
+        public Boolean samePlayerTakeTurn = false;
 
         //Net-related
         private static byte[] buffer = new byte[1024];
@@ -88,18 +89,26 @@ namespace Barricade
 
         public void iterateToNextPlayer()
         {
-            currentPlayer++;
-            
-            if(currentPlayer > connectedSocketList.Count)
+            if(samePlayerTakeTurn)
             {
-                //It is the hosts turn
-                currentPlayer = 0;
-                myForm.canPlay = true;
+                send(connectedSocketList.ElementAt(currentPlayer), "CanPlay");
+                samePlayerTakeTurn = false;
             }
             else
             {
-                Socket targetedPlayer = connectedSocketList.ElementAt(currentPlayer - 1);
-                send(targetedPlayer, "CanPlay");
+                currentPlayer++;
+
+                if (currentPlayer > connectedSocketList.Count)
+                {
+                    //It is the hosts turn
+                    currentPlayer = 0;
+                    myForm.canPlay = true;
+                }
+                else
+                {
+                    Socket targetedPlayer = connectedSocketList.ElementAt(currentPlayer - 1);
+                    send(targetedPlayer, "CanPlay");
+                }
             }
         }
 
@@ -126,7 +135,9 @@ namespace Barricade
                     //Check if any boxes have been filled
                     //Else send the game board as is to all connected clients
                     string myGameBoard = receivedCommand.Substring(6);
+                    
                     myForm.hostAssessTurn(currentPlayer);
+                    myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add(receivedCommand)));
                     myForm.hostBroadcastBoard();
                     iterateToNextPlayer();
                 }
