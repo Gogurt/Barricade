@@ -104,6 +104,7 @@ namespace Barricade
                 string receivedCommand = Encoding.ASCII.GetString(dataBuf);
                 Console.WriteLine("Text received from host: " + receivedCommand);
 
+
                 //Interpret game logic from host or other connected client here
                 if(receivedCommand == "GameStart")
                 {
@@ -122,19 +123,28 @@ namespace Barricade
                     myForm.Invoke(new Action(() => myForm.updateFormBoard()));
                     myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
                 }
+                else if (receivedCommand.StartsWith("CanPlayUpdate"))
+                {
+                    myForm.canPlay = true;
+                    String board = receivedCommand.Substring(13);
+                    myForm.Invoke(new Action(() => myForm.gameBoard = myForm.readBoard(board)));
+                    myForm.Invoke(new Action(() => myForm.updateFormBoard()));
+                    myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
+                }
                 else
                 {
                     myForm.Invoke(new Action(() => myForm.logToGameTextbox("Error: Recieved unknown query from host.")));
                     myForm.Invoke(new Action(() => myForm.logToGameTextbox(receivedCommand)));
                 }
-                
+
+
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), clientSocket);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
 
-            clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), clientSocket);
 
         }
 

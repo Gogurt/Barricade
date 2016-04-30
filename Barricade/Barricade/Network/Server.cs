@@ -98,7 +98,8 @@ namespace Barricade
             }
             else
             {
-                send(connectedSocketList.ElementAt(currentPlayer - 1), "CanPlay");
+                Socket targetedPlayer = connectedSocketList.ElementAt(currentPlayer - 1);
+                send(targetedPlayer, "CanPlay");
             }
         }
 
@@ -148,13 +149,15 @@ namespace Barricade
             socket.EndSend(AR);
         }
 
-        private static void send(Socket client, String data)
+        private void send(Socket client, String data)
         {
             // Convert the string data to byte data using ASCII encoding.
             byte[] byteData = Encoding.ASCII.GetBytes(data);
 
             // Begin sending the data to the remote device.
+           
             client.BeginSend(byteData, 0, byteData.Length, SocketFlags.None, new AsyncCallback(SendCallback), client);
+            client.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), client);
         }
 
         public void closeServer()
@@ -188,12 +191,9 @@ namespace Barricade
                         send(connectedSocketList.ElementAt(i), text);
                     }
                 }
-
-                
-                myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add(text)));
-
                 connectedSocketList.ElementAt(i).BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), connectedSocketList.ElementAt(i));
-            }
+               }
+            //myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add(text)));
 
         }
 

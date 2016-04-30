@@ -44,8 +44,8 @@ namespace Barricade
         int baseHorizontalOffset = 30;
 
         //Booleans
-        public Boolean canPlay = true;
-        public Boolean iAmTheHost = true;
+        public Boolean canPlay = false;
+        public Boolean iAmTheHost = false;
         public Boolean gameContinue = true;
         public Boolean takeAnotherTurn = false;
 
@@ -74,6 +74,7 @@ namespace Barricade
                     newBox.Width = dotSize;
                     int xCoordinate = baseHorizontalOffset + i * (dotSize + lineLength);
                     int yCoordinate = baseVerticalOffset + j * (dotSize + lineLength);
+         
                     newBox.Location = new Point(xCoordinate, yCoordinate);
                     this.gamePanel.Controls.Add(newBox);
                     boardDots.Add(newBox);
@@ -218,13 +219,16 @@ namespace Barricade
                             //Broadcast the board if the host.
                             if (iAmTheHost)
                             {
+                                canPlay = false;
                                 hostAssessTurn(0);
                                 hostBroadcastBoard();
                             }
                             else
                             {
+                                canPlay = false;
                                 clientSendBoard();
                             }
+                            logToGameTextbox(canPlay.ToString());
 
                         }
                     }
@@ -249,10 +253,13 @@ namespace Barricade
                             //Broadcast the board if the host.
                             if (iAmTheHost)
                             {
+                                canPlay = false;
+                                hostAssessTurn(0);
                                 hostBroadcastBoard();
                             }
                             else
                             {
+                                canPlay = false;
                                 clientSendBoard();
                             }
 
@@ -280,7 +287,6 @@ namespace Barricade
         //Join a session button (Join Game)
         private void joinGameClickEvent(object sender, EventArgs e)
         {
-            iAmTheHost = false;
             joinSessionPanel.Visible = true;
             string ipInput = Microsoft.VisualBasic.Interaction.InputBox("Enter the host ip. If left empty, this will attempt to connect to a local host.", "Join Host Session", "", -1, -1);
             if (ipInput.Length == 0)
@@ -354,6 +360,7 @@ namespace Barricade
             //Send player indicator to make their game panel visible
             //Send initial info to connected players about game settings, whose turn it is
             server.broadcastToClients(null, "GameStart");
+            //server.serverSocket.Close();
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -566,6 +573,8 @@ namespace Barricade
                 }
                 else
                 {
+                    logToGameTextbox("takeAnotherTurn: " + takeAnotherTurn.ToString());
+                    Console.WriteLine(takeAnotherTurn.ToString());
                     if(takeAnotherTurn == true)
                     {
                         canPlay = true;
