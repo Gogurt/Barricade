@@ -103,7 +103,6 @@ namespace Barricade
 
                 string receivedCommand = Encoding.ASCII.GetString(dataBuf);
                 Console.WriteLine("Text received from host: " + receivedCommand);
-                myForm.Invoke(new Action(() => myForm.logToGameTextbox("Text recieved from host: " + receivedCommand)));
 
                 //Interpret game logic from host or other connected client here
                 if(receivedCommand == "GameStart")
@@ -122,9 +121,17 @@ namespace Barricade
                 {
                     myForm.canPlay = true;
                 }
+                else if (receivedCommand.StartsWith("Update"))
+                {
+                    String board = receivedCommand.Substring(6);
+                    myForm.Invoke(new Action(() => myForm.gameBoard = myForm.readBoard(board)));
+                    myForm.Invoke(new Action(() => myForm.updateFormBoard()));
+                    myForm.Invoke(new Action(() => myForm.gamePanel.Visible = true));
+                }
                 else
                 {
                     myForm.Invoke(new Action(() => myForm.logToGameTextbox("Error: Recieved unknown query from host.")));
+                    myForm.Invoke(new Action(() => myForm.logToGameTextbox(receivedCommand)));
                 }
                 
             }

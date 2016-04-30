@@ -443,6 +443,42 @@ namespace Barricade
             return board;
         }
 
+        public void updateFormBoard()
+        {
+            //Iterate through the whole board
+            for (int i = 0; i < 11; i++)
+            {
+                for (int j = 0; j < 11; j++)
+                {
+                    if (gameBoard[i][j] == "|") //If it's a line
+                    {
+                        
+                        if (gameBoard[i][j+1] == "." && gameBoard[i][j-1] == ".") //If it's a vertical line
+                        {
+                            //Color it blue
+                            boardLinesV[i/2][j/2 -1].BackColor = Color.RoyalBlue;
+                        }
+                        else //If it's a horizontal line
+                        {
+                            //Color it blue
+                            boardLinesH[i/2 -1][j/2].BackColor = Color.RoyalBlue;
+
+                        }
+                    }
+                    else if (gameBoard[i][j] == "n") //If it's a null line
+                    {
+                        //Theoretically nothing happens since lines can't be removed.
+                    }
+                    else if (i%2 == 0 && j%2 == 0 && gameBoard[i][j] != "b") //If it's a filled box
+                    {
+                        //Color it appropriately to the player who scored it
+
+
+                    }
+                }
+            }
+        }
+
         public String writeBoard(List<List<String>> inputBoard)
         {
             //Creates a string version of the board.
@@ -480,7 +516,7 @@ namespace Barricade
                 return newBoard;
         }
 
-        public void hostAssessTurn(String currentPlayer)
+        public void hostAssessTurn(int currentPlayer)
         {
             //We assume that all boxes have been completed.
             Boolean flag = false;
@@ -501,7 +537,7 @@ namespace Barricade
                         if (gameBoard[i][j+1] == "|" && gameBoard[i][j-1] == "|" && gameBoard[i+1][j] == "|" && gameBoard[i-1][j] == "|")
                         {
                             //That player scored a point and gets another turn
-                            gameBoard[i][j] = currentPlayer;
+                            gameBoard[i][j] = Convert.ToString(currentPlayer);
                             takeAnotherTurn = true;
                             flag = false;
                         }
@@ -523,12 +559,15 @@ namespace Barricade
         public void hostBroadcastBoard()
         {
             //Sends out the string from the writeBoard() function to the clients.
-
+            String message = "Update" + writeBoard(gameBoard);
+            Console.WriteLine(message);
+            server.broadcastToClients(null, message);
         }
 
         public void clientSendBoard()
         {
             //Send the string from the writeBoard() function to the host.
+            client.SendLoop("Update" + writeBoard(gameBoard));
         }
     }
 }
