@@ -56,9 +56,10 @@
             this.joinGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
             this.joinGameButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.joinGameButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.joinGameButton.Location = new System.Drawing.Point(12, 270);
+            this.joinGameButton.Location = new System.Drawing.Point(16, 332);
+            this.joinGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.joinGameButton.Name = "joinGameButton";
-            this.joinGameButton.Size = new System.Drawing.Size(152, 48);
+            this.joinGameButton.Size = new System.Drawing.Size(203, 59);
             this.joinGameButton.TabIndex = 0;
             this.joinGameButton.Text = "Join Game";
             this.joinGameButton.UseVisualStyleBackColor = false;
@@ -69,9 +70,10 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.ForeColor = System.Drawing.SystemColors.Control;
-            this.button2.Location = new System.Drawing.Point(12, 324);
+            this.button2.Location = new System.Drawing.Point(16, 399);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(152, 48);
+            this.button2.Size = new System.Drawing.Size(203, 59);
             this.button2.TabIndex = 1;
             this.button2.Text = "Host Game";
             this.button2.UseVisualStyleBackColor = false;
@@ -82,9 +84,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(5, 9);
+            this.label1.Location = new System.Drawing.Point(7, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 37);
+            this.label1.Size = new System.Drawing.Size(200, 46);
             this.label1.TabIndex = 2;
             this.label1.Text = "Barricade";
             // 
@@ -94,10 +97,11 @@
             this.joinSessionPanel.Controls.Add(this.button3);
             this.joinSessionPanel.Controls.Add(this.clientDebugTextbox);
             this.joinSessionPanel.Controls.Add(this.label2);
-            this.joinSessionPanel.Location = new System.Drawing.Point(177, 393);
-            this.joinSessionPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.joinSessionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.joinSessionPanel.Location = new System.Drawing.Point(0, 0);
+            this.joinSessionPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.joinSessionPanel.Name = "joinSessionPanel";
-            this.joinSessionPanel.Size = new System.Drawing.Size(507, 376);
+            this.joinSessionPanel.Size = new System.Drawing.Size(701, 467);
             this.joinSessionPanel.TabIndex = 3;
             this.joinSessionPanel.Visible = false;
             // 
@@ -106,9 +110,10 @@
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
             this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.ForeColor = System.Drawing.SystemColors.Control;
-            this.button3.Location = new System.Drawing.Point(186, 319);
+            this.button3.Location = new System.Drawing.Point(248, 393);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(152, 48);
+            this.button3.Size = new System.Drawing.Size(203, 59);
             this.button3.TabIndex = 6;
             this.button3.Text = "Back";
             this.button3.UseVisualStyleBackColor = false;
@@ -117,20 +122,21 @@
             // clientDebugTextbox
             // 
             this.clientDebugTextbox.FormattingEnabled = true;
-            this.clientDebugTextbox.Location = new System.Drawing.Point(13, 23);
+            this.clientDebugTextbox.ItemHeight = 16;
+            this.clientDebugTextbox.Location = new System.Drawing.Point(17, 28);
+            this.clientDebugTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clientDebugTextbox.Name = "clientDebugTextbox";
             this.clientDebugTextbox.ScrollAlwaysVisible = true;
-            this.clientDebugTextbox.Size = new System.Drawing.Size(485, 290);
+            this.clientDebugTextbox.Size = new System.Drawing.Size(645, 356);
             this.clientDebugTextbox.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(10, 7);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(13, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.Size = new System.Drawing.Size(76, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Join Game";
             // 
@@ -143,28 +149,29 @@
             this.hostSessionPanel.Controls.Add(this.hostDebugTextbox);
             this.hostSessionPanel.Controls.Add(this.button4);
             this.hostSessionPanel.Controls.Add(this.hostGameLabel);
-            this.hostSessionPanel.Location = new System.Drawing.Point(177, 11);
-            this.hostSessionPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.hostSessionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hostSessionPanel.Location = new System.Drawing.Point(0, 0);
+            this.hostSessionPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.hostSessionPanel.Name = "hostSessionPanel";
-            this.hostSessionPanel.Size = new System.Drawing.Size(507, 378);
+            this.hostSessionPanel.Size = new System.Drawing.Size(701, 467);
             this.hostSessionPanel.TabIndex = 4;
             this.hostSessionPanel.Visible = false;
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(298, 24);
+            this.panel1.Location = new System.Drawing.Point(397, 30);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 289);
+            this.panel1.Size = new System.Drawing.Size(267, 356);
             this.panel1.TabIndex = 12;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(295, 7);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(393, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.Size = new System.Drawing.Size(57, 17);
             this.label4.TabIndex = 11;
             this.label4.Text = "Options";
             // 
@@ -173,9 +180,10 @@
             this.hostStartButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
             this.hostStartButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.hostStartButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.hostStartButton.Location = new System.Drawing.Point(346, 319);
+            this.hostStartButton.Location = new System.Drawing.Point(461, 393);
+            this.hostStartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hostStartButton.Name = "hostStartButton";
-            this.hostStartButton.Size = new System.Drawing.Size(152, 48);
+            this.hostStartButton.Size = new System.Drawing.Size(203, 59);
             this.hostStartButton.TabIndex = 10;
             this.hostStartButton.Text = "Start Game";
             this.hostStartButton.UseVisualStyleBackColor = false;
@@ -184,10 +192,12 @@
             // hostDebugTextbox
             // 
             this.hostDebugTextbox.FormattingEnabled = true;
-            this.hostDebugTextbox.Location = new System.Drawing.Point(13, 23);
+            this.hostDebugTextbox.ItemHeight = 16;
+            this.hostDebugTextbox.Location = new System.Drawing.Point(17, 28);
+            this.hostDebugTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hostDebugTextbox.Name = "hostDebugTextbox";
             this.hostDebugTextbox.ScrollAlwaysVisible = true;
-            this.hostDebugTextbox.Size = new System.Drawing.Size(278, 290);
+            this.hostDebugTextbox.Size = new System.Drawing.Size(369, 356);
             this.hostDebugTextbox.TabIndex = 8;
             // 
             // button4
@@ -195,9 +205,10 @@
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.ForeColor = System.Drawing.SystemColors.Control;
-            this.button4.Location = new System.Drawing.Point(13, 319);
+            this.button4.Location = new System.Drawing.Point(17, 393);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(152, 48);
+            this.button4.Size = new System.Drawing.Size(203, 59);
             this.button4.TabIndex = 7;
             this.button4.Text = "Back";
             this.button4.UseVisualStyleBackColor = false;
@@ -207,10 +218,9 @@
             // 
             this.hostGameLabel.AutoSize = true;
             this.hostGameLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.hostGameLabel.Location = new System.Drawing.Point(10, 7);
-            this.hostGameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.hostGameLabel.Location = new System.Drawing.Point(13, 9);
             this.hostGameLabel.Name = "hostGameLabel";
-            this.hostGameLabel.Size = new System.Drawing.Size(60, 13);
+            this.hostGameLabel.Size = new System.Drawing.Size(79, 17);
             this.hostGameLabel.TabIndex = 0;
             this.hostGameLabel.Text = "Host Game";
             // 
@@ -220,22 +230,23 @@
             this.gamePanel.Controls.Add(this.exitGameButton);
             this.gamePanel.Controls.Add(this.gameTextbox);
             this.gamePanel.Controls.Add(this.label3);
-            this.gamePanel.Location = new System.Drawing.Point(688, 127);
-            this.gamePanel.Margin = new System.Windows.Forms.Padding(2);
+            this.gamePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gamePanel.Location = new System.Drawing.Point(0, 0);
+            this.gamePanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gamePanel.Name = "gamePanel";
-            this.gamePanel.Size = new System.Drawing.Size(525, 382);
+            this.gamePanel.Size = new System.Drawing.Size(701, 467);
             this.gamePanel.TabIndex = 7;
             this.gamePanel.Visible = false;
-            //this.gamePanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gamePanel_MouseClick);
             // 
             // exitGameButton
             // 
             this.exitGameButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(111)))), ((int)(((byte)(136)))));
             this.exitGameButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exitGameButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.exitGameButton.Location = new System.Drawing.Point(12, 321);
+            this.exitGameButton.Location = new System.Drawing.Point(16, 395);
+            this.exitGameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.exitGameButton.Name = "exitGameButton";
-            this.exitGameButton.Size = new System.Drawing.Size(152, 48);
+            this.exitGameButton.Size = new System.Drawing.Size(203, 59);
             this.exitGameButton.TabIndex = 13;
             this.exitGameButton.Text = "Exit Game";
             this.exitGameButton.UseVisualStyleBackColor = false;
@@ -244,36 +255,38 @@
             // gameTextbox
             // 
             this.gameTextbox.FormattingEnabled = true;
-            this.gameTextbox.Location = new System.Drawing.Point(313, 23);
+            this.gameTextbox.ItemHeight = 16;
+            this.gameTextbox.Location = new System.Drawing.Point(417, 28);
+            this.gameTextbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gameTextbox.Name = "gameTextbox";
             this.gameTextbox.ScrollAlwaysVisible = true;
-            this.gameTextbox.Size = new System.Drawing.Size(201, 290);
+            this.gameTextbox.Size = new System.Drawing.Size(267, 356);
             this.gameTextbox.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(310, 7);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(413, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(46, 17);
             this.label3.TabIndex = 0;
             this.label3.Text = "Game";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(79)))), ((int)(((byte)(100)))));
-            this.ClientSize = new System.Drawing.Size(1231, 780);
+            this.ClientSize = new System.Drawing.Size(701, 467);
             this.Controls.Add(this.gamePanel);
             this.Controls.Add(this.joinSessionPanel);
             this.Controls.Add(this.hostSessionPanel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.joinGameButton);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Barricade";

@@ -74,6 +74,7 @@ namespace Barricade
                 catch(Exception e)
                 {
                     myForm.Invoke(new Action(() => myForm.hostDebugTextbox.Items.Add("Failed to send to all connected clients.")));
+                    Console.WriteLine(e.ToString());
                 }
                 
 

@@ -27,7 +27,6 @@ namespace Barricade
         static Client client;
 
         Thread gameThread;
-        Graphics graphics;
 
         public Form1()
         {
