@@ -266,6 +266,8 @@ namespace Barricade
                         }
                     }
                 }
+
+                updateFormBoard();
             }//end if
 
         }
@@ -478,37 +480,47 @@ namespace Barricade
                     {
                         //Theoretically nothing happens since lines can't be removed.
                     }
-                    else if (i%2 == 0 && j%2 == 0 && gameBoard[i][j] != "b") //If it's a filled box
+                    else if (gameBoard[i][j] != "n" && gameBoard[i][j] != "|" && gameBoard[i][j] != "b" && gameBoard[i][j] != ".") //If it's a filled box
                     {
-                        //Color it appropriately to the player who scored it
-                        Color playerColor;
-                        switch (gameBoard[i][j])
-                        {
-                            case "-1":
-                                playerColor = Color.CadetBlue;
-                                break;
-                            case "0":
-                                playerColor = Color.Red;
-                                break;
-                            case "1":
-                                playerColor = Color.Green;
-                                break;
-                            case "2":
-                                playerColor = Color.Orange;
-                                break;
-                            case "3":
-                                playerColor = Color.MediumPurple;
-                                break;
-                            default:
-                                playerColor = gamePanel.BackColor;
-                                break;
-                        }
-
-                        boardBoxes[(i-1) / 2][(j-1) / 2].BackColor = playerColor; 
+                        gameOver(gameBoard[i][j]); 
 
                     }
                 }
             }
+        }
+
+        public void gameOver(String loser)
+        {
+            /*//Make everything red.
+            for (int i = 0; i < c -1; i++)
+            {
+                for (int j = 0; j < r; j++)
+                {
+                    boardLinesH[i][j].BackColor = Color.Red;
+                }
+            }
+
+            for (int i = 0; i < c; i++)
+            {
+                for (int j = 0; j < r - 1; j++)
+                {
+                    boardLinesV[i][j].BackColor = Color.Red;
+                }
+            }*/
+
+            //Announce the loser
+            gameTextbox.Items.Clear();
+            if (loser.Equals("-1"))
+            {
+                gameTextbox.Items.Add("The host lost the game.");
+            }
+            else
+            {
+                gameTextbox.Items.Add("Player " + loser + " lost the game.");
+            }
+
+            //Prevent further plays
+            canPlay = false;
         }
 
         public String writeBoard(List<List<String>> inputBoard)
