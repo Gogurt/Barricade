@@ -89,39 +89,18 @@ namespace Barricade
 
         public void iterateToNextPlayer()
         {
-            if(samePlayerTakeTurn)
+            currentPlayer++;
+            if(currentPlayer >= connectedSocketList.Count)
             {
-                if(currentPlayer == -1)
-                {
-                    //Host bonus turn
-                    myForm.canPlay = true;
-                    samePlayerTakeTurn = false;
-                }
-                else
-                {
-                    //Client bonus turn
-                    send(connectedSocketList.ElementAt(currentPlayer), "CanPlay");
-                    samePlayerTakeTurn = false;
-                }
+                currentPlayer = -1;
+                myForm.canPlay = true;
+                myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("It is player " + currentPlayer.ToString() + "'s turn.")));
             }
             else
             {
-                currentPlayer++;
-
-                if (currentPlayer >= connectedSocketList.Count)
-                {
-                    //It is the hosts turn
-                    currentPlayer = -1;
-                    myForm.canPlay = true;
-                    myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("It is player " + currentPlayer.ToString() + "'s turn.")));
-                }
-                else
-                {   
-                    Socket targetedPlayer = connectedSocketList.ElementAt(currentPlayer);
-                    send(targetedPlayer, "CanPlay");
-                    myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("It is player " + currentPlayer.ToString() + "'s turn.")));
-                }
-
+                Socket targetedPlayer = connectedSocketList.ElementAt(currentPlayer);
+                send(targetedPlayer, "CanPlay");
+                myForm.Invoke(new Action(() => myForm.gameTextbox.Items.Add("It is player " + currentPlayer.ToString() + "'s turn.")));
             }
         }
 

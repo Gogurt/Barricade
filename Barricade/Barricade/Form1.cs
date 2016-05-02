@@ -583,24 +583,10 @@ namespace Barricade
             {
                 gameContinue = true;
 
-                if (takeAnotherTurn == false)
-                {
-                    hostBroadcastBoard();
-                    server.iterateToNextPlayer();
-                    canPlay = false;
-                }
-                else
-                {
-                    if(server.currentPlayer == -1)
-                    {
-                        canPlay = true;
-                    }
-                    else
-                    {
-                        server.send(server.connectedSocketList.ElementAt(currentPlayer), "CanPlay");
-                        server.samePlayerTakeTurn = true;
-                    }
-                }
+
+                hostBroadcastBoard();
+                canPlay = false;
+                server.iterateToNextPlayer();
                 
             }
             else
