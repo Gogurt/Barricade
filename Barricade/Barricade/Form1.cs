@@ -267,9 +267,9 @@ namespace Barricade
                     }
                 }
 
-                updateFormBoard();
             }//end if
 
+            updateFormBoard();
         }
 
         private void DrawBoard()
